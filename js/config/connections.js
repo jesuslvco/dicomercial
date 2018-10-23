@@ -9,6 +9,7 @@ define([], function(){
             url:'search/%s?fields=id,title.rendered,link,type,excerpt,content,featured_image',
             type:'GET',
             dataType:'json'
+			
 	    }
     };
     
