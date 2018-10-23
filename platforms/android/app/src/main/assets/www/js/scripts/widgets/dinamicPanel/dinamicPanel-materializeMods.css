@@ -1,0 +1,12 @@
+.custom-dinamicPanel .collection .collection-item.avatar{
+	min-height: 60px;
+}
+
+.dp-search-result{
+	position: absolute;
+    top: 121px;
+    bottom: 14px;
+    overflow-y: auto;
+    left: 10px !important;
+    right: 0px !important;
+}

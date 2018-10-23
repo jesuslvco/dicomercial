@@ -1,0 +1,144 @@
+@import url(sprite/dinamicPanel-sprite.css);
+@import url(dinamicPanel-materializeMods.css);
+.custom-dinamicPanel{
+	position: absolute;
+	width: 55px;
+	height: 55px;
+	left: 10px;
+	top: 10px;
+	z-index: 1;
+}
+
+.dinamicPanel-circle-container{
+	background-color: #132472;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 68px;
+    height: 68px;
+    border-radius: 34px;
+	-webkit-border-radius: 34px;
+}
+
+#dinamicPanel_circle_spinner{
+	position: absolute;
+    left: 1.5px;
+    top: 1.5px;
+	display: none;
+}
+
+.custom-dinamicPanel.showSpinner #dinamicPanel_circle_spinner{
+	display: block;
+}
+
+.dinamicPanel-circle-img-container{
+	position: absolute;
+    width: 60px;
+    height: 60px;
+    left: 4.4px;
+    top: 4.4px;
+    background-color: #FFF;
+	overflow: hidden;
+	background-position: center;
+	border: 4px solid  #FFFFFF;
+	border-radius: 30px;
+	-webkit-border-radius: 30px;
+}
+.dinamicPanel-circle-img-container div {
+    width: 60px;
+    height: 60px;
+    background-position: center;
+    background-position-y: center;
+    position: absolute;
+    top: -3px;
+    left: -4px;
+}
+.dinamicPanel-input-box{
+    position: absolute;
+    left: 54px;
+    top: 12px;
+    width: 310px;
+    height: 45px;
+	background-color: #FFF;
+    border-radius: 0px 10px 10px 0px;
+	-webkit-border-radius: 0px 10px 10px 0px;
+}
+.dinamicPanel-input-btn-box-container{
+	position: absolute;
+    right: 6px;
+    top: 4px;
+    width: 35px;
+    height: 35px;
+}
+.dinamicPanel-sprite-btn-option{
+	width: 35px;
+	height: 35px;
+	background-position:center;
+}
+
+.dinamicPanel-input-search{
+	background-color: transparent;
+    color: #555;
+    font-size: 17px;
+    height: 31px;
+    overflow: hidden;
+    right: 45px;
+    top: 4px;
+    width: 100%;
+	border: none;
+}
+.dinamicPanel-input-search:focus{
+	background-color: transparent;
+    outline: none;
+}
+.dinamicPanel-input-box-container{
+	position: absolute;
+    width: 100%;
+    height: 32px;
+    top: 2px;
+    padding: 5px 40px 0px 22px;
+}
+.dinamicPanel-result-container{
+	background-color: white;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 10px;
+	height: 10px;
+	padding: 70px 20px 20px 20px;
+	overflow: hidden;
+	
+	display: none;
+}
+
+.dinamicPanel-modal{
+	background-color: rgba(255,255,255,0.4);
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 10px;
+	height: 10px;
+	display: none;
+}
+.custom-dinamicPanel.capturingtext .dinamicPanel-result-container{
+	display: block;
+}
+
+#dinamicPanel_btn_clear{
+	display: none;
+}
+.custom-dinamicPanel.capturingtext #dinamicPanel_btn_clear{
+	display: block;
+}
+.custom-dinamicPanel.capturingtext #dinamicPanel_btn_options{
+	display: none;
+}
+.custom-dinamicPanel.modalpanel #dinamicPanel_modal{
+	display: block;
+}
+
+.dinamicPanel-search-results-container{
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+}
