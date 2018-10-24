@@ -5,17 +5,20 @@
 requirejs.config({
     paths: {
         connections:'config/connections',
-        version:'config/version'
+        version:'config/version',
+		data:'config/data'
+		
     }
 });
 /**
  * Carga cada uno de los archivos definidos el las rutas de carga considerando las dependencias
  */
-define(["version","connections","router"], function(version,connections,router){
+define(["version","connections","router","data"], function(version,connections,router,data){
 	var config = {
 			connections:connections,
 			version:projectVersion,
-			language:null
+			language:null,
+			data:data
 		}
 	router.config = config;
 	return({config:config});

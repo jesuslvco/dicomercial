@@ -40,6 +40,7 @@ requirejs.config({
 
 define(["amplify"], function(){
         var v = 'version='+projectVersion;
+		
         $.when(
             $('<link>', {rel: 'stylesheet',type: 'text/css',href:'js/libs/materialize/css/materialize.css?'+v}).appendTo('head'),
             $('<link>', {rel: 'stylesheet',type: 'text/css',href:'https://fonts.googleapis.com/icon?family=Material+Icons&'+v}).appendTo('head'),
