@@ -1,19 +1,23 @@
 //WIDGETS INIT
 requirejs.config({
     paths: {
-        mainUI:'scripts/widgets/mainUI/jquery.ui.mainUI'
+        mainUI:'scripts/widgets/mainUI/jquery.ui.mainUI',
+		categoryToSlider:'scripts/widgets/categoryToSlider/jquery.ui.categoryToSlider'
     },
 	shim: {
         mainUI:{
             exports:'mainUI'
+		},
+		categoryToSlider:{
+			exports:'categoryToSlider'
 		}
     },
     waitSeconds: 0
 });
 define(["router","storedData",  //modulos
-		"mainUI"],function  //widgets
+		"mainUI","categoryToSlider"],function  //widgets
 		(router,storedData, //modulos
-		mainUI){ //widgets
+		mainUI,categoryToSlider){ //widgets
 	
 	var widgets = {
 		init:function(){

@@ -1,65 +1,28 @@
-$.widget("custom.mainUI", {
-  //--------Codigo de Widget------------------------------------------------------------------------------
-  createDOM:function(){
-    var obj = this;
-    var container = obj.element;
-    var cadena = '';
-    cadena+= '<div id="mainui_top_search" class="mainui-top-search"></div>';
-    cadena+= '<div id="mainui_bottom_container" class="mainui-bottom-container">';
-    cadena+= '  <div id="mainui_content" class="mainui-content"></div>';
-    cadena+= '  <div  id="mainui_left" class="mainui-left"></div>';
-    cadena+= '</div>';
-    container.html(cadena);
-
-    obj.printCategories();
-    obj.createHomeContent();
-  },
-  createHomeContent:function(){
-    var obj = this;
-    var container = $('#mainui_content');
-    var cadena = '<div id="homeSlider"></div>';
-
-    container.html(cadena); //inicializa contenido principal
-    
-    console.log('mainUI');
-    //activa widgets de inicio
-    $('#homeSlider').categoryToSlider({
-      path:require.toUrl("categoryToSlider"),
-      storedData:obj.options.storedData,
-      idCat:32
-    });
-
-  },
-  printCategories:function(){
-    var obj = this;
-    var list = obj.options.storedData.data.categories;
-
-    /*
-    count: 5
-description: ""
-id: 36
-link: "http://www.directoriocomercialdelcentro.com/category/abogados-y-despachos/"
-meta: []
-name: "Abogados y Despachos"
-parent: 0
-slug: "abogados-y-despachos"
-taxonomy: "category"
-
-*/
-    var cadena = '';
-    //link a inicio
-    cadena+= '<div id="go_home" class="cat-home-btn">inicio</div>';
-
-    for(var x in list){
-      var cat = list[x];
-      cadena+= '<div id="cat_item_'+cat.id+'" slug="'+cat.slug+'"  idref="'+cat.id+'" class="cat-item">'+cat.name+'</div>';
-    }
-    $('#mainui_left').html(cadena);
-    
-  },
+$.widget("custom.categoryToSlider", {
+  //--------Codigo de Widget-------------------------------------------------------------------------------
+  page:1,
+  per_page:15,
   // default options
   options: {
-    data:null
+
+  },
+  printSlider:function(){
+    var obj = this;
+    var idCat = obj.options.idCat;
+
+    obj.loadCategoryData(idCat,function(data){
+      console.log('slider');
+    });
+  },
+  loadCategoryData:function(idCat,func){
+    var obj = this;
+    idCat = 36;
+    var page = 1;
+    var per_page = 15;
+    var service =  obj.options.storedData.getPostsFromCategory;
+    service(idCat,page,per_page,function(data){
+      if($.isFunction(func))func(data);
+    })
   },
   //Logica del Widget---------------------------------------------------------------------------------------
   loadFiles: function () {
@@ -73,8 +36,6 @@ taxonomy: "category"
         $(deferred.resolve);
       })
     ).done(function () {
-      //levanta tabla de simbolos
-      //obj.symbols = layerManager_symbols;
       obj._refresh();
     });
   },
@@ -103,7 +64,7 @@ taxonomy: "category"
 
     this.element
       // add a class for theming
-      .addClass("custom-mainUI");
+      .addClass("custom-categoryToSlider");
 
     var _path = obj.options.path.split('/');
     _path.splice(-1,1);
@@ -117,16 +78,17 @@ taxonomy: "category"
     });
     
     this.loadFiles();
-    this.createDOM();
+
+    this._trigger("change");
+    obj.printSlider();
+
     this._refresh();
   },
 
   // Called when created, and later when changing options
   _refresh: function () {
+    var obj = this;
     // Trigger a callback/event
-    
-    this._trigger("change");
-
   },
 
 
@@ -137,7 +99,7 @@ taxonomy: "category"
     this.changer.remove();
 
     this.element
-      .removeClass("custom-mainUI")
+      .removeClass("custom-categoryToSlider")
       .enableSelection()
       .css("background-color", "transparent");
   },

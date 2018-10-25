@@ -23,24 +23,24 @@ define(['config','getData'],function(config,getData){
             obj.getData(service,{},function(_data){  //success
                 obj.data.categories = _data;
 
-                if($.isFunction(func))func();
-            },function(data){ //error
+                if($.isFunction(func))func(_data);
+            },function(_data){ //error
                 console.log('fallo al cargar las categorias');
             });
 
         },
-        getPostsFromCategory:function(cat_id,page,func){
+        getPostsFromCategory:function(cat_id,page,per_page,func){
             var obj = this;
-            var service = $.extend({},config.config.connections.getPostsFromCategory);
+            var domain = config.config.connections.domain;
+            var service = $.extend({},config.config.connections.postsFromCategory);
             service.url = domain+service.url;
             service.params.categories = cat_id;
             service.params.page = page;
-            obj.getData(service,{},function(_data){  //success
-                    
-
-                obj.data.results.push() = _data;
-                if($.isFunction(func))func();
-            },function(data){ //error
+            service.params.per_page = page;
+            getData(service,{},function(_data){  //success
+                //obj.data.results.push() = _data;
+                if($.isFunction(func))func(_data);
+            },function(_data){ //error
                 console.log('fallo al cargar entradas de la categoria');
             })
         }

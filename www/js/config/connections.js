@@ -27,8 +27,8 @@ define([], function(){
 				categories:0,
 				page:1,
 				per_page:10,
-				fields:'id,title.rendered,link,type,excerpt,content,featured_image,categories',
-				orderby:'relevance'
+				//fields:'id,title.rendered,link,type,excerpt,content,featured_image,categories',
+				//orderby:'relevance'
 			},
             dataType:'json'
 		},
