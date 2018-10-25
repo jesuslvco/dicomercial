@@ -15,7 +15,6 @@ requirejs.config({
         standard_fonts_metrics:'libs/jsPdf/standard_fonts_metrics',
         fileUpload:'libs/upload/fileupload',
         amplify:'libs/amplify/amplify'
-        
     },
     waitSeconds: 0,
     shim: {
