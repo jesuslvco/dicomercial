@@ -55,6 +55,31 @@ taxonomy: "category"
       cadena+= '<div id="cat_item_'+cat.id+'" slug="'+cat.slug+'"  idref="'+cat.id+'" class="cat-item">'+cat.name+'</div>';
     }
     $('#mainui_left').html(cadena);
+
+
+    /*
+    var container = new Hammer(document.getElementById('bottomInfo_top_container'));
+		container.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+		container.on("swiperight swipeleft swipeup swipedown", function(ev) { //detectar pan y determina si es swipe basado en la velocidad
+			switch(ev.type){
+				case 'swipeup':
+						if(obj.position < 3)obj.position++;
+						obj.updatePosition();
+					break;
+				case 'swipedown':
+						if(obj.position > 0)obj.position--;
+						obj.updatePosition();
+					break;
+				default:
+						obj.position =  0;
+						obj.updatePosition();
+					break;
+			}
+		});
+    */
+
+
+
     
   },
   // default options

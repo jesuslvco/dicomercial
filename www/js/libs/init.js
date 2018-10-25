@@ -4,6 +4,7 @@ requirejs.config({
         jqueryui:'libs/jquery/jquery-ui.min',
         highcharts:'libs/highcharts/code/highcharts.src',
         materialize:'libs/materialize/js/materialize',
+        hammerjs:'libs/hammer/hammer.min',
         html2canvas:'libs/html2canvas/html2canvas',
         canvg:'libs/html2canvas/canvg',
         jsPdf:'libs/jsPdf/jsPdf',
@@ -22,6 +23,9 @@ requirejs.config({
             deps:['materialize']  
         },
         materialize:{
+            deps:['hammerjs']
+        },
+        hammerjs:{
             deps:['fileUpload']
         },
         fileUpload:{
