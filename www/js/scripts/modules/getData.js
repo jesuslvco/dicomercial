@@ -30,11 +30,8 @@ define(function(){
 		var dataObject = {
 			data: params,
 			success: function (json, estatus) {
-				if (json.response && json.response.success) {
-					callback(json.data, estatus);
-				} else {
-
-				}
+				if ($.isFunction(callback)) 
+					callback(json, estatus);
 			},
 			beforeSend: function (solicitudAJAX) {
 				//obj.showSpinner();

@@ -1,8 +1,13 @@
 requirejs.config({
-/*    paths: {
-        mapping:'scripts/modules/mapping/mapping'
+    paths: {
+        getData:'scripts/modules/getData',
+        storedData:'scripts/modules/storedData'
     },
     waitSeconds: 0,
-*/    
 });
-define();
+define(["getData","storedData"],function(getData,storedData){
+    return{
+        getData:getData,
+        storedData:storedData
+    }
+});
