@@ -17,16 +17,16 @@ $.widget("custom.mainUI", {
   createHomeContent:function(){
     var obj = this;
     var container = $('#mainui_content');
-    var cadena = '<div id="homeSlider"></div>';
+    var cadena = '<div id="homeSlider" class="card"></div>';
 
     container.html(cadena); //inicializa contenido principal
     
-    console.log('mainUI');
     //activa widgets de inicio
+    var sliderCat = obj.options.storedData.data.slider_category.id;
     $('#homeSlider').categoryToSlider({
       path:require.toUrl("categoryToSlider"),
       storedData:obj.options.storedData,
-      idCat:32
+      idCat:sliderCat
     });
 
   },

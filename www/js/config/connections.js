@@ -15,7 +15,7 @@ define([], function(){
 				search:'',
 				page:1,
 				per_page:10,
-				fields:'id,title.rendered,link,type,excerpt,content,featured_image,categories',
+				fields:'id,title.rendered,link,type,acf',
 				orderby:'relevance'
 			},
             dataType:'json'
@@ -27,7 +27,7 @@ define([], function(){
 				categories:0,
 				page:1,
 				per_page:10,
-				//fields:'id,title.rendered,link,type,excerpt,content,featured_image,categories',
+				fields:'id,title.rendered,link,type,acf',
 				//orderby:'relevance'
 			},
             dataType:'json'

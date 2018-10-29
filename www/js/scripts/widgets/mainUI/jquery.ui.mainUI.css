@@ -4,7 +4,6 @@
     right: 0px;
     top: 0px;
     bottom: 0px;
-
     background-color: white;
 }
 .mainui-bottom-container{
@@ -40,6 +39,7 @@
     right: 0px;
     top: 0px;
     bottom: 0px;
+    overflow-y: auto;
 
     background-color:white;
 }

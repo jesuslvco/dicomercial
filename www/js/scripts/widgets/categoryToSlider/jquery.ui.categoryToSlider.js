@@ -1,36 +1,78 @@
 $.widget("custom.categoryToSlider", {
   //--------Codigo de Widget-------------------------------------------------------------------------------
-  page:1,
-  per_page:15,
+  page: 1,
+  per_page: 15,
+  timerRoll: 0,
   // default options
   options: {
-
+    per_page: 5,
+    idCat: null,
+    actions:function(){}
   },
-  printSlider:function(){
+  printSlider: function () {
     var obj = this;
     var idCat = obj.options.idCat;
 
-    obj.loadCategoryData(idCat,function(data){
-      console.log('slider');
+    var cadena = '<div id="' + obj.id + '_wide_carrucel" class="carousel carousel-slider">';
+    obj.loadCategoryData(idCat, function (data) {
+      for (var x in data) {
+        var post = data[x];
+        var image = post.acf.logo.sizes.medium_large;
+        var title = post.title.rendered;
+        cadena += '<a class="carousel-item" _title="' + title + '" idref="' + post.id + '"><img src="' + image + '"></a>';
+      }
+      cadena += '</div>';
+
+      obj.element.html(cadena);
+      $('#' + obj.id + '_wide_carrucel').carousel({
+        fullWidth: true,
+        dist:0,
+        onCycleTo: function ($current_item, dragged) {
+          stopAutoplay();
+          startAutoplay();
+        }
+      });
+
+      var instance = M.Carousel.getInstance($('#' + obj.id + '_wide_carrucel'));
+      var autoplay_id;
+      function startAutoplay() {
+        autoplay_id = setInterval(function () {
+          instance.next();
+        }, 5000); // every 5 seconds
+        //console.log("starting autoplay");
+      }
+
+      function stopAutoplay() {
+        if (autoplay_id) {
+          clearInterval(autoplay_id);
+        }
+      }
+
+      $('#'+obj.id+' .carousel-item').each(function(){
+        $(this).click(function(){
+          obj.options.actions({action:'view_post',id:$(this).attr('idref')});
+        });
+      });
+
+
     });
   },
-  loadCategoryData:function(idCat,func){
+  loadCategoryData: function (idCat, func) {
     var obj = this;
-    idCat = 36;
-    var page = 1;
-    var per_page = 15;
-    var service =  obj.options.storedData.getPostsFromCategory;
-    service(idCat,page,per_page,function(data){
-      if($.isFunction(func))func(data);
+    var page = obj.page;
+    var per_page = obj.options.per_page;
+    var service = obj.options.storedData.getPostsFromCategory;
+    service(idCat, page, per_page, function (data) {
+      if ($.isFunction(func)) func(data);
     })
   },
   //Logica del Widget---------------------------------------------------------------------------------------
   loadFiles: function () {
     var obj = this;
-    var cssFile = obj.widgetFile+'.css';
+    var cssFile = obj.widgetFile + '.css';
 
     $.when(
-      $('<link>', { rel: 'stylesheet', type: 'text/css', href: obj.path + '/'+cssFile }).appendTo('head'), //hoja de estilo de widget
+      $('<link>', { rel: 'stylesheet', type: 'text/css', href: obj.path + '/' + cssFile }).appendTo('head'), //hoja de estilo de widget
       //$.getScript( path+'/symbols/symbols.js' ), //simbologia de busquedas
       $.Deferred(function (deferred) {
         $(deferred.resolve);
@@ -67,16 +109,16 @@ $.widget("custom.categoryToSlider", {
       .addClass("custom-categoryToSlider");
 
     var _path = obj.options.path.split('/');
-    _path.splice(-1,1);
+    _path.splice(-1, 1);
     obj.path = _path.join('/');
     obj.pathVars = obj.options.path.split('?')[1];
-    obj.widgetFile = obj.options.path.split('/')[obj.options.path.split('/').length-1].split('?')[0];
+    obj.widgetFile = obj.options.path.split('/')[obj.options.path.split('/').length - 1].split('?')[0];
 
     //detecta evento de cambio de tamaño
-		$(window).resize(function () {
-			obj.onResize();
+    $(window).resize(function () {
+      obj.onResize();
     });
-    
+
     this.loadFiles();
 
     this._trigger("change");

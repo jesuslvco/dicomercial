@@ -2,6 +2,7 @@ define(['config','getData'],function(config,getData){
     
     var data = {
         categories:[],
+        slider_category:null,
         searches:[],
         results:[],
         currentShow:null,
@@ -21,7 +22,17 @@ define(['config','getData'],function(config,getData){
             service.url = domain+service.url;
             service.params = {}
             obj.getData(service,{},function(_data){  //success
-                obj.data.categories = _data;
+                var list = _data;
+                for (var x in list){
+                    var cat = list[x];
+                    var type = (cat.acf)?(cat.acf.category_type)?cat.acf.category_type:'normal':'normal';
+
+                    if(type == 'premium'){
+                        obj.data.slider_category = cat;
+                    }else{
+                        obj.data.categories.push(cat);
+                    }
+                }
 
                 if($.isFunction(func))func(_data);
             },function(_data){ //error
@@ -36,7 +47,7 @@ define(['config','getData'],function(config,getData){
             service.url = domain+service.url;
             service.params.categories = cat_id;
             service.params.page = page;
-            service.params.per_page = page;
+            service.params.per_page = per_page;
             getData(service,{},function(_data){  //success
                 //obj.data.results.push() = _data;
                 if($.isFunction(func))func(_data);
