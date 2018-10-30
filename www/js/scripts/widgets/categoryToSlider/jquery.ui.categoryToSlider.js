@@ -13,6 +13,30 @@ $.widget("custom.categoryToSlider", {
     var obj = this;
     var idCat = obj.options.idCat;
 
+    var cadena = '';
+    cadena+= '   <div class="your-class">';
+     obj.loadCategoryData(idCat, function (data) {
+        for (var x in data) {
+            var post = data[x];
+            var image = post.acf.logo.sizes.medium_large;
+            var title = post.title.rendered;
+            cadena += '<div><img src="' + image + '" ></div>';
+        }
+     });
+    /*
+      cadena+= '<div>your content</div>';
+      cadena+= '<div>your content</div>';
+      cadena+= '<div>your content</div>'; */
+    cadena+= '</div>';
+
+    obj.element.html(cadena);
+    $('.your-class').slick({
+      mobileFirst:true,
+
+    // 'setting-name': 'setting-value'
+    });
+
+    /*
     var cadena = '<div id="' + obj.id + '_wide_carrucel" class="carousel carousel-slider">';
     obj.loadCategoryData(idCat, function (data) {
       for (var x in data) {
@@ -52,10 +76,11 @@ $.widget("custom.categoryToSlider", {
         $(this).click(function(){
           obj.options.actions({action:'view_post',id:$(this).attr('idref')});
         });
-      });
+      }); */
+      
 
 
-    });
+    //});
   },
   loadCategoryData: function (idCat, func) {
     var obj = this;

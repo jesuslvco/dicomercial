@@ -14,10 +14,14 @@ requirejs.config({
         split_text_to_size:'libs/jsPdf/split_text_to_size',
         standard_fonts_metrics:'libs/jsPdf/standard_fonts_metrics',
         fileUpload:'libs/upload/fileupload',
-        amplify:'libs/amplify/amplify'
+        amplify:'libs/amplify/amplify',
+        slick:'libs/slick-1.8.1/slick.min'
     },
     waitSeconds: 0,
     shim: {
+        slick:{
+            deps:['amplify']  
+        },
         amplify:{
             deps:['materialize']  
         },
@@ -41,12 +45,16 @@ requirejs.config({
     }
 });
 
-define(["amplify"], function(){
+define(["slick"], function(){
         var v = 'version='+projectVersion;
 		
         $.when(
             $('<link>', {rel: 'stylesheet',type: 'text/css',href:'js/libs/materialize/css/materialize.css?'+v}).appendTo('head'),
             $('<link>', {rel: 'stylesheet',type: 'text/css',href:'https://fonts.googleapis.com/icon?family=Material+Icons&'+v}).appendTo('head'),
+
+            $('<link>', {rel: 'stylesheet',type: 'text/css',href:'js/libs/slick-1.8.1/slick.css?'+v}).appendTo('head'),
+            $('<link>', {rel: 'stylesheet',type: 'text/css',href:'js/libs/slick-1.8.1/slick-theme.css?'+v}).appendTo('head'),
+
             $.Deferred(function( deferred ){
 			$( deferred.resolve );
 		    })
