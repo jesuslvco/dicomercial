@@ -13,28 +13,35 @@ $.widget("custom.categoryToSlider", {
     var obj = this;
     var idCat = obj.options.idCat;
 
-    var cadena = '';
-    cadena+= '   <div class="your-class">';
+   
      obj.loadCategoryData(idCat, function (data) {
+        var cadena = '';
+        cadena+= '<div id="main_page_slider" class="main-page-slider">';
         for (var x in data) {
             var post = data[x];
             var image = post.acf.logo.sizes.medium_large;
             var title = post.title.rendered;
-            cadena += '<div><img src="' + image + '" ></div>';
+            cadena += '<div idref="'+post.id+'" class="main-slider-item" ><img src="' + image + '" border="0" ></div>';
         }
+
+        cadena+= '</div>';
+        obj.element.html(cadena);
+        $('#main_page_slider').slick({
+           arrows:false,
+           autoplay:true,
+           autoplaySpeed: 6000,
+           mobileFirst: false
+        }).on('click',function(event, slick,image){
+          var active = $('.main-slider-item.slick-active').attr('idref');
+          console.log(active);
+
+        });
      });
     /*
       cadena+= '<div>your content</div>';
       cadena+= '<div>your content</div>';
       cadena+= '<div>your content</div>'; */
-    cadena+= '</div>';
-
-    obj.element.html(cadena);
-    $('.your-class').slick({
-      mobileFirst:true,
-
-    // 'setting-name': 'setting-value'
-    });
+    
 
     /*
     var cadena = '<div id="' + obj.id + '_wide_carrucel" class="carousel carousel-slider">';
