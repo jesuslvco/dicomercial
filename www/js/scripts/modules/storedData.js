@@ -36,7 +36,7 @@ define(['config','getData'],function(config,getData){
 
                 if($.isFunction(func))func(_data);
             },function(_data){ //error
-                console.log('fallo al cargar las categorias');
+                M.toast({html: 'fallo al cargar las categorias'});
             });
 
         },
@@ -45,14 +45,21 @@ define(['config','getData'],function(config,getData){
             var domain = config.config.connections.domain;
             var service = $.extend({},config.config.connections.postsFromCategory);
             service.url = domain+service.url;
-            service.params.categories = cat_id;
+
+            if(cat_id) //considera la categoria solo si se recibe el parametro
+                service.params.categories = cat_id;
+              
             service.params.page = page;
             service.params.per_page = per_page;
+
+            if(!cat_id && service.params.categories)
+                delete service.params.categories;
+
             getData(service,{},function(_data){  //success
                 //obj.data.results.push() = _data;
                 if($.isFunction(func))func(_data);
             },function(_data){ //error
-                console.log('fallo al cargar entradas de la categoria');
+                M.toast({html: 'fallo al cargar entradas de la categoria'});
             })
         }
         //---------------------------------

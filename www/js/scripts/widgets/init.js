@@ -26,7 +26,32 @@ define(["router","storedData",  //modulos
 			$('#main_content').append(cadena);
 			$('#main_ui').mainUI({
 				path:require.toUrl("mainUI"),
-				storedData:storedData
+				storedData:storedData,
+				homeContent:function(container){
+						var cadena = '<div id="homeSlider"></div>';
+						container.html(cadena); //inicializa contenido principal
+						//activa widgets de inicio
+						var sliderCat = storedData.data.slider_category.id;
+						$('#homeSlider').categoryToSlider({
+							path:require.toUrl("categoryToSlider"),
+							storedData:storedData,
+							idCat:sliderCat,
+							slideToShow:1,
+							per_page:5
+						});
+
+						var cadena = '<div id="homeRandomPost"></div>';
+						container.append(cadena); //inicializa contenido principal
+						//activa widgets de inicio
+						
+						var sliderCat = storedData.data.slider_category.id;
+						$('#homeRandomPost').categoryToSlider({
+							path:require.toUrl("categoryToSlider"),
+							storedData:storedData,
+							per_page:9,
+							slideToShow:3
+						});
+				}
 			});
 		}
 	}

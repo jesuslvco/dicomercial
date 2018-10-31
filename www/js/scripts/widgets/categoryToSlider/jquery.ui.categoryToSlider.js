@@ -7,96 +7,54 @@ $.widget("custom.categoryToSlider", {
   options: {
     per_page: 5,
     idCat: null,
-    actions:function(){}
+    per_page:null,
+    actions:function(){},
+    slideToShow:null
   },
   printSlider: function () {
     var obj = this;
-    var idCat = obj.options.idCat;
-
-   
-     obj.loadCategoryData(idCat, function (data) {
+    
+     obj.loadCategoryData(function (data) {
         var cadena = '';
-        cadena+= '<div id="main_page_slider" class="main-page-slider">';
+        cadena+= '<div id="'+obj.id+'_slider_container" class="main-page-slider">';
         for (var x in data) {
             var post = data[x];
-            var image = post.acf.logo.sizes.medium_large;
+            var image = (post.acf.logo)?post.acf.logo.sizes.medium_large:'img/no-image-square.jpg';
             var title = post.title.rendered;
             cadena += '<div idref="'+post.id+'" class="main-slider-item" ><img src="' + image + '" border="0" ></div>';
         }
 
         cadena+= '</div>';
         obj.element.html(cadena);
-        $('#main_page_slider').slick({
+        var objConfig = {
            arrows:false,
            autoplay:true,
            autoplaySpeed: 6000,
-           mobileFirst: false
-        }).on('click',function(event, slick,image){
+           mobileFirst: false,
+           slidesToShow: slideToShow,
+           slidesToScroll: slideToShow,
+           infinite: true,
+        }
+        debugger;
+
+        $('#'+obj.id+'_slider_container').slick(objConfig).on('click',function(event, slick,image){
           var active = $('.main-slider-item.slick-active').attr('idref');
           console.log(active);
 
         });
      });
-    /*
-      cadena+= '<div>your content</div>';
-      cadena+= '<div>your content</div>';
-      cadena+= '<div>your content</div>'; */
-    
-
-    /*
-    var cadena = '<div id="' + obj.id + '_wide_carrucel" class="carousel carousel-slider">';
-    obj.loadCategoryData(idCat, function (data) {
-      for (var x in data) {
-        var post = data[x];
-        var image = post.acf.logo.sizes.medium_large;
-        var title = post.title.rendered;
-        cadena += '<a class="carousel-item" _title="' + title + '" idref="' + post.id + '"><img src="' + image + '"></a>';
-      }
-      cadena += '</div>';
-
-      obj.element.html(cadena);
-      $('#' + obj.id + '_wide_carrucel').carousel({
-        fullWidth: true,
-        dist:0,
-        onCycleTo: function ($current_item, dragged) {
-          stopAutoplay();
-          startAutoplay();
-        }
-      });
-
-      var instance = M.Carousel.getInstance($('#' + obj.id + '_wide_carrucel'));
-      var autoplay_id;
-      function startAutoplay() {
-        autoplay_id = setInterval(function () {
-          instance.next();
-        }, 5000); // every 5 seconds
-        //console.log("starting autoplay");
-      }
-
-      function stopAutoplay() {
-        if (autoplay_id) {
-          clearInterval(autoplay_id);
-        }
-      }
-
-      $('#'+obj.id+' .carousel-item').each(function(){
-        $(this).click(function(){
-          obj.options.actions({action:'view_post',id:$(this).attr('idref')});
-        });
-      }); */
-      
-
-
-    //});
   },
-  loadCategoryData: function (idCat, func) {
+  loadCategoryData: function (func) {
     var obj = this;
     var page = obj.page;
+    var idCat = obj.options.idCat;
     var per_page = obj.options.per_page;
+
     var service = obj.options.storedData.getPostsFromCategory;
     service(idCat, page, per_page, function (data) {
       if ($.isFunction(func)) func(data);
-    })
+    });
+    
   },
   //Logica del Widget---------------------------------------------------------------------------------------
   loadFiles: function () {

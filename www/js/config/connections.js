@@ -24,7 +24,7 @@ define([], function(){
 			url:'posts', 
 			type:'GET',
 			params:{
-				categories:0,
+				//categories:0,
 				page:1,
 				per_page:10,
 				fields:'id,title.rendered,link,type,acf',
