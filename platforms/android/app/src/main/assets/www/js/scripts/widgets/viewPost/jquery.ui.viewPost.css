@@ -1,0 +1,36 @@
+.custom.baseWidget{
+    
+}
+.custom-view h1{
+    font-size: 26px;
+}
+.custom-view h2{
+    font-size: 22px;
+}
+.custom-view h3{
+    font-size: 18px;
+}
+.custom-view .card-title{
+    background-color: rgba(70, 70, 70, 0.2);
+    text-shadow: 1px 1px 2px #000;
+    font-weight: bold;
+}
+
+.custom-view .telephone-content{
+    display: flex;
+    align-items: center;
+};
+
+
+.card-content .address-content{
+    display: flex;
+    padding-bottom: 5px;
+    align-items: center;
+};
+.social-link{
+    padding-right: 6px;
+}
+
+.social-link img{
+    width: 56px;
+}

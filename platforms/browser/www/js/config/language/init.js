@@ -26,7 +26,7 @@ function getCookie(cname) {
     return "";
 }
 //----------------------------------------------------------------------------------
-var lang_selection = 'MX_es';
+
 var lang = getCookie('mdm_language');
 if(!lang){
 	setCookie('mdm_language','MX_es',365);
@@ -43,5 +43,4 @@ requirejs.config({
  */
 define(["lang","router"], function(lang,router){
 	router.language = lang;
-	router.language.region = lang_selection;
 });

@@ -1,0 +1,18 @@
+.custom.categoryList{
+
+
+}
+.categorylist-item{
+  display: flex !important;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.categorylist-item-text{
+  margin-left: 10px;
+}

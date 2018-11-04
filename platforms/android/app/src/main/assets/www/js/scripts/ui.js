@@ -8,14 +8,12 @@ define(["router"],function(router){
 		createHTMLStructure:function(){
 			var obj = this;
 			var chain = '<div id="app" class="app">'+
-                        '	<div id="map" class="map"></div>'+
-						'	<div id="widgets_containers" class="widgets-containers"></div>'+
-						'	<div id="header" class="header"></div>'+
-                        '	<div id="foot" class="foot"></div>'+
+                        '	<div id="header" class="header"></div>'+
+                        '	<div id="main_content" class="main-content"></div>'+
+                        '	<div class="footer"></div>'+
                     	'</div>';
         	$("body").html(chain);
-		},
-		
+		}
 	}
 	return ui;
 });

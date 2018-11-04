@@ -4,22 +4,21 @@
  */
 requirejs.config({
     paths: {
-        mappingConfig:'config/mapping',
         connections:'config/connections',
         version:'config/version',
-        tree:'config/tree'
+		data:'config/data'
+		
     }
 });
 /**
  * Carga cada uno de los archivos definidos el las rutas de carga considerando las dependencias
  */
-define(["version","mappingConfig","connections","tree","router"], function(version,mappingConfig,connections,tree,router){
+define(["version","connections","router","data"], function(version,connections,router,data){
 	var config = {
 			connections:connections,
-			tree:tree,
-			mappingConfig:mappingConfig,
 			version:projectVersion,
-			language:null
+			language:null,
+			data:data
 		}
 	router.config = config;
 	return({config:config});

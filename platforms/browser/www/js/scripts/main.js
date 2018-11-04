@@ -1,12 +1,12 @@
-define(["mapping","router","ui","widgets"], function(mapping,router,ui,widgets){
+define(["router","ui","widgets"], function(router,ui,widgets){
 	var config = router;
     var main = {
 		init:function(){
 			ui.init();
-			mapping.init();
-			router.map = mapping;
 			widgets.init();
+			var r = router;
 		}
     };
     return main;
+    
 });

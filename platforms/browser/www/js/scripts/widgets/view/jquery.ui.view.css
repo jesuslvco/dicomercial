@@ -1,0 +1,51 @@
+.custom-view{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: white;
+    z-index: 1000;
+}
+.view-header{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    height: 55px;
+    padding: 0px 10px 0px 10px;
+    background-color:  rgb(240, 211, 133);
+    
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.view-container{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 55px;
+    bottom: 0px;
+    background-color: white;
+    padding: 10px;
+
+    overflow-y: auto;
+}
+
+.view-backbutton{
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    width: 118px;
+}
+.view-header-title{
+    margin-left: 10px;
+    font-size: 18px;
+}

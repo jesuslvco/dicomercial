@@ -1,0 +1,36 @@
+.containerSpinner{
+    position: absolute;
+    left:0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.containerSpinner-base{
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+    padding: 5px;
+    background-color: white;
+
+    -webkit-box-shadow: 1px 1px 1px 1px #8A8A8A;
+    box-shadow: 1px 1px 1px 1px #8A8A8A;
+    overflow: hidden;
+
+    background-image: url(../img/1x/app_logo_round.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.containerSpinner .preloader-wrapper{
+    width: 190px !important;
+    height: 190px !important;
+}
+.containerSpinner-animation{
+    position: relative;
+}
+.containerSpinner-logo{
+    position: relative;
+}

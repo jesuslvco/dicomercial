@@ -1,9 +1,35 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
-module.exports = [];
+module.exports = [
+  {
+    "id": "com.teamnemitoff.phonedialer.phonedialer",
+    "file": "plugins/com.teamnemitoff.phonedialer/www/dialer.js",
+    "pluginId": "com.teamnemitoff.phonedialer",
+    "merges": [
+      "phonedialer"
+    ]
+  },
+  {
+    "id": "es6-promise-plugin.Promise",
+    "file": "plugins/es6-promise-plugin/www/promise.js",
+    "pluginId": "es6-promise-plugin",
+    "runs": true
+  },
+  {
+    "id": "cordova-plugin-x-socialsharing.SocialSharing",
+    "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+    "pluginId": "cordova-plugin-x-socialsharing",
+    "clobbers": [
+      "window.plugins.socialsharing"
+    ]
+  }
+];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-  "cordova-plugin-whitelist": "1.3.3"
+  "cordova-plugin-whitelist": "1.3.3",
+  "com.teamnemitoff.phonedialer": "0.3.1",
+  "es6-promise-plugin": "4.2.2",
+  "cordova-plugin-x-socialsharing": "5.4.1"
 };
 // BOTTOM OF METADATA
 });

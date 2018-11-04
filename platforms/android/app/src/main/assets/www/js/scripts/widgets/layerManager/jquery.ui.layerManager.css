@@ -1,0 +1,82 @@
+@charset "utf-8";
+/* CSS Document */
+.custom-layerManager{
+	position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: #FFF;
+	overflow: hidden;
+	background-color: white;
+	z-index: 2;   /*Sobre panel dinamico   */
+}
+.layerManager-container{
+	
+}
+.layerManager-item-layer{
+	display: flex;
+}
+.layerManager-item-active-container{
+	display: flex;
+	justify-content: flex-end;
+  	align-items: flex-start;
+}
+.layerManager-item-text{
+	width: 100%;
+	padding: 0px 5px 0px 5px;
+}
+
+.layerManager-item-active-text-active{
+	height: 28px;
+    width: 28px;
+}
+.layerManager-item-active-text-active a{
+	height: 22.4px;
+    line-height: 21.4px;
+    font-size: 13px;
+	padding: 0 8px;
+}
+.layerManager-item-active-layer-active{
+	height: 26px;
+	width: 21px;
+	display: flex;
+	align-items: flex-end
+}
+.layerManager-container-content{
+	position: absolute;
+	top: 52px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: white;
+	
+	overflow-y: auto;
+}
+/*------------- */
+.layerManager-container-header{
+	position: absolute;
+    top: -6px;
+    left: 0px;
+    right: 0px;
+    height: 50px;
+    z-index: 1;
+    padding: 5px 10px;
+	
+    display: flex;
+    align-items: center;
+}
+.btn-back{
+	border-radius: 20px;
+}
+
+.layerManager-container-header-button{
+	display: flex;
+	flex: 1;
+	align-items: flex-start;
+}
+.layerManager-container-header-button{
+	display: flex;
+	flex: 1;
+	align-items: flex-end;
+}

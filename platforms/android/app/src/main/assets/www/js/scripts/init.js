@@ -15,11 +15,14 @@ requirejs.config({
     waitSeconds: 0
     
 });
-define(["main","language"],function(main,language){
+define(["main","language","modules"],function(main,language,modules){
+    
 	return{
 		init:function(){
 			$('document').ready(function(){
-				main.init();
+                modules.storedData.init(function(){ //precarga la informacion necesaria antes de iniciar el app
+                   main.init();
+                })
 			});
 		}
 	}

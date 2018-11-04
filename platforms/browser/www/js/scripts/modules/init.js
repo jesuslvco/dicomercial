@@ -1,27 +1,13 @@
 requirejs.config({
     paths: {
-        mapping:'scripts/modules/mapping/mapping',
-        mappingTree:'scripts/modules/mapping/tree',
-        mappingFetures:'scripts/modules/mapping/features',
-        mappingMarkers:'scripts/modules/mapping/markers',
-		cards:'scripts/modules/cards/cards'
+        getData:'scripts/modules/getData',
+        storedData:'scripts/modules/storedData'
     },
     waitSeconds: 0,
-    shim: {
-        mapping: {
-            deps:['mappingTree']
-        }
-    }
-    
 });
-define(["mapping"],function(mapping){
-	
-		$.when(
-            $('<link>', {rel: 'stylesheet',type: 'text/css',href:'js/scripts/modules/cards/cards.css'}).appendTo('head'),
-            $.Deferred(function( deferred ){
-			$( deferred.resolve );
-		    })
-		).done(function(){
-	    });
-    
+define(["getData","storedData"],function(getData,storedData){
+    return{
+        getData:getData,
+        storedData:storedData
+    }
 });
