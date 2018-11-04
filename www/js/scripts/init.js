@@ -21,7 +21,7 @@ define(["main","language","modules"],function(main,language,modules){
 		init:function(){
 			$('document').ready(function(){
                 modules.storedData.init(function(){ //precarga la informacion necesaria antes de iniciar el app
-                    main.init();
+                   main.init();
                 })
 			});
 		}

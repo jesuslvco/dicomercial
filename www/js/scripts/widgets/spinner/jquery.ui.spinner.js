@@ -1,72 +1,17 @@
-$.widget("custom.categoryToSlider", {
+$.widget("custom.spinner", {
   //--------Codigo de Widget-------------------------------------------------------------------------------
-  page: 1,
-  per_page: 15,
-  timerRoll: 0,
+  count:0,
   // default options
   options: {
-    per_page: 5,
-    idCat: null,
-    per_page:null,
-    actions:function(){},
-    slideToShow:null,
-    autoplay:false,
-    autoplaySpeed:5000,
-  },
-  printSlider: function () {
-    var obj = this;
-    var slideToShow = obj.options.slideToShow;
-     obj.loadCategoryData(function (data) {
-        data = data.result;
-        var cadena = '';
-        cadena+= '<div id="'+obj.id+'_slider_container" class="main-page-slider">';
-        for (var x in data) {
-            var post = data[x];
-            var image = (post.acf.logo)?post.acf.logo.sizes.medium_large:'img/no-image-square.jpg';
-            var title = post.title.rendered;
-            cadena += '<div idref="'+post.id+'" class="main-slider-item" ><img src="' + image + '" border="0" ></div>';
-        }
 
-        cadena+= '</div>';
-        obj.element.html(cadena);
-        var objConfig = {
-           arrows:false,
-           autoplay:true,
-           autoplaySpeed: obj.options.autoplaySpeed,
-           mobileFirst: false,
-           slidesToShow: slideToShow,
-           slidesToScroll: slideToShow,
-           infinite: true,
-        }
-        
-
-        $('#'+obj.id+'_slider_container').slick(objConfig).on('click',function(event, slick,image){
-          var active = $('.main-slider-item.slick-active').attr('idref');
-          console.log(active);
-
-        });
-     });
-  },
-  loadCategoryData: function (func) {
-    var obj = this;
-    var page = obj.page;
-    var idCat = obj.options.idCat;
-    var per_page = obj.options.per_page;
-    var search = null;
-
-    var service = obj.options.storedData.getPostsFromCategory;
-    service(idCat,search,page, per_page, function (data) {
-      if ($.isFunction(func)) func(data);
-    });
-    
   },
   //Logica del Widget---------------------------------------------------------------------------------------
   loadFiles: function () {
     var obj = this;
-    var cssFile = obj.widgetFile + '.css';
+    var cssFile = obj.widgetFile+'.css';
 
     $.when(
-      $('<link>', { rel: 'stylesheet', type: 'text/css', href: obj.path + '/' + cssFile }).appendTo('head'), //hoja de estilo de widget
+      $('<link>', { rel: 'stylesheet', type: 'text/css', href: obj.path + '/'+cssFile }).appendTo('head'), //hoja de estilo de widget
       //$.getScript( path+'/symbols/symbols.js' ), //simbologia de busquedas
       $.Deferred(function (deferred) {
         $(deferred.resolve);
@@ -94,37 +39,69 @@ $.widget("custom.categoryToSlider", {
   },
 
   // The constructor
+  show:function(){
+    var obj = this;
+    obj.count++;
+    obj.element.css('display','block');
+  },
+  hide:function(){
+    var obj = this;
+    obj.count--;
+    if(obj.count <= 0){
+      obj.count = 0;
+      obj.element.css('display','none');
+    }
+  },
   _create: function () {
     var obj = this;
     obj.id = obj.element.attr('id');
 
     this.element
       // add a class for theming
-      .addClass("custom-categoryToSlider");
+      .addClass("custom-spinner").css('display','none');
 
     var _path = obj.options.path.split('/');
-    _path.splice(-1, 1);
+    _path.splice(-1,1);
     obj.path = _path.join('/');
     obj.pathVars = obj.options.path.split('?')[1];
-    obj.widgetFile = obj.options.path.split('/')[obj.options.path.split('/').length - 1].split('?')[0];
+    obj.widgetFile = obj.options.path.split('/')[obj.options.path.split('/').length-1].split('?')[0];
 
     //detecta evento de cambio de tamaño
-    $(window).resize(function () {
-      obj.onResize();
+		$(window).resize(function () {
+			obj.onResize();
     });
-
+    
     this.loadFiles();
 
-    this._trigger("change");
-    obj.printSlider();
-
     this._refresh();
+    this.createHTML();
   },
+  createHTML:function(){
+    var obj = this;
+    var cadena = '<div class="containerSpinner">';
+        cadena+= '   <div class="containerSpinner-base">';
+        cadena+= '          <div class="containerSpinner-animation">';
+        cadena+= '              <div class="preloader-wrapper big active">';
+        cadena+= '                  <div class="spinner-layer spinner-blue-only">';
+        cadena+= '                  <div class="circle-clipper left">';
+        cadena+= '                      <div class="circle"></div>';
+        cadena+= '                  </div><div class="gap-patch">';
+        cadena+= '                      <div class="circle"></div>';
+        cadena+= '                  </div><div class="circle-clipper right">';
+        cadena+= '                      <div class="circle"></div>';
+        cadena+= '                  </div>';
+        cadena+= '                  </div>';
+        cadena+= '              </div>';
+        cadena+= '          </div>';
+        cadena+= '   </div>';
+        cadena+= '</div>';
 
+        obj.element.html(cadena);
+  },
   // Called when created, and later when changing options
   _refresh: function () {
-    var obj = this;
     // Trigger a callback/event
+    this._trigger("change");
   },
 
 
@@ -135,7 +112,7 @@ $.widget("custom.categoryToSlider", {
     this.changer.remove();
 
     this.element
-      .removeClass("custom-categoryToSlider")
+      .removeClass("custom-spinner")
       .enableSelection()
       .css("background-color", "transparent");
   },

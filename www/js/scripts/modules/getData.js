@@ -31,12 +31,16 @@ define(function(){
 				//Estructura basica de peticion
 				var dataObject = {
 					data: params,
-					success: function (json, estatus) {
+					success: function (json, estatus,XMLHttpRequest) {
+						var total_pages = XMLHttpRequest.getResponseHeader("x-wp-totalpages");
+						var total_records = XMLHttpRequest.getResponseHeader("x-wp-total");
+						json = {result:json,pages:total_pages,total:total_records};
+						
 						if ($.isFunction(callback)) 
 							callback(json, estatus);
 					},
 					beforeSend: function (solicitudAJAX) {
-						//obj.showSpinner();
+						$('#main_spinner').spinner('show');
 						if ($.isFunction(before)) {
 							before(params);
 						};
@@ -47,7 +51,7 @@ define(function(){
 						};
 					},
 					complete: function (solicitudAJAX, estatus) {
-						//obj.hideSpinner();
+						$('#main_spinner').spinner('hide');
 						if ($.isFunction(complete)) {
 							complete(solicitudAJAX, estatus);
 						};

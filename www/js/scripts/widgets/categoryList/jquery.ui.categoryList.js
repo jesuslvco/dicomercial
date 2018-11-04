@@ -1,61 +1,76 @@
-$.widget("custom.categoryToSlider", {
+$.widget("custom.categoryList", {
   //--------Codigo de Widget-------------------------------------------------------------------------------
-  page: 1,
+  page: 0,
+  totalPages:null,
+  totalRecord:null,
   per_page: 15,
   timerRoll: 0,
   // default options
   options: {
     per_page: 5,
     idCat: null,
-    per_page:null,
-    actions:function(){},
+    search:null,
+    per_page:20,
+    onAction:function(){},
     slideToShow:null,
     autoplay:false,
     autoplaySpeed:5000,
   },
-  printSlider: function () {
+  printEntries: function () {
     var obj = this;
+    obj.page++;
     var slideToShow = obj.options.slideToShow;
-     obj.loadCategoryData(function (data) {
-        data = data.result;
-        var cadena = '';
-        cadena+= '<div id="'+obj.id+'_slider_container" class="main-page-slider">';
-        for (var x in data) {
-            var post = data[x];
-            var image = (post.acf.logo)?post.acf.logo.sizes.medium_large:'img/no-image-square.jpg';
-            var title = post.title.rendered;
-            cadena += '<div idref="'+post.id+'" class="main-slider-item" ><img src="' + image + '" border="0" ></div>';
+    var cadena = ' <div class="collection">';
+    obj.loadCategoryData(function (data) {
+      
+      if(!obj.totalPages) obj.totalPages = data.pages;
+      if(!obj.totalRecord) obj.totalRecord = data.total;
+
+      var list = data.result;
+      for(var x in list){
+        var item = list[x];
+        var title = item.title.rendered;
+        var image = (item.acf.logo)?item.acf.logo.sizes.medium_large:'img/no-image-square.jpg';
+        cadena+='<a idref="'+item.id+'" slug="'+item.slug+'" name="'+title+'" href="#!" class="collection-item categorylist-item">';
+        cadena+=' <img width="80" src="'+image+'" class="categorylist-item-image">';
+        cadena+=' <div class="categorylist-item-text">'+title+'</div>';
+        cadena+='</a>';
+      }
+      cadena+='</div>';
+      obj.element.append(cadena);
+      var parent = obj.element.parent();
+
+      parent.scroll(function() {
+          if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+              if(obj.page < obj.totalPages)
+              obj.printEntries();
+          } 
+      });
+
+      $('.categorylist-item').each(function(){
+        if(!$(this).attr('set')){
+          $(this).click(function(){
+            var idref= $(this).attr('idref');
+            var title = $(this).attr('name');
+            var slug = $(this).attr('slug');
+            obj.options.onAction({action:'viewPost',id:idref,slug:slug,title:title});
+          });
+          $(this).attr('set',true);
         }
-
-        cadena+= '</div>';
-        obj.element.html(cadena);
-        var objConfig = {
-           arrows:false,
-           autoplay:true,
-           autoplaySpeed: obj.options.autoplaySpeed,
-           mobileFirst: false,
-           slidesToShow: slideToShow,
-           slidesToScroll: slideToShow,
-           infinite: true,
-        }
-        
-
-        $('#'+obj.id+'_slider_container').slick(objConfig).on('click',function(event, slick,image){
-          var active = $('.main-slider-item.slick-active').attr('idref');
-          console.log(active);
-
-        });
-     });
+      });
+      
+    });
   },
   loadCategoryData: function (func) {
     var obj = this;
     var page = obj.page;
     var idCat = obj.options.idCat;
+    var search = obj.options.search;
     var per_page = obj.options.per_page;
-    var search = null;
 
     var service = obj.options.storedData.getPostsFromCategory;
-    service(idCat,search,page, per_page, function (data) {
+    
+    service(idCat, search, page, per_page, function (data) {
       if ($.isFunction(func)) func(data);
     });
     
@@ -100,7 +115,7 @@ $.widget("custom.categoryToSlider", {
 
     this.element
       // add a class for theming
-      .addClass("custom-categoryToSlider");
+      .addClass("custom-categoryList");
 
     var _path = obj.options.path.split('/');
     _path.splice(-1, 1);
@@ -116,7 +131,7 @@ $.widget("custom.categoryToSlider", {
     this.loadFiles();
 
     this._trigger("change");
-    obj.printSlider();
+    obj.printEntries();
 
     this._refresh();
   },
@@ -135,7 +150,7 @@ $.widget("custom.categoryToSlider", {
     this.changer.remove();
 
     this.element
-      .removeClass("custom-categoryToSlider")
+      .removeClass("custom-categoryList")
       .enableSelection()
       .css("background-color", "transparent");
   },

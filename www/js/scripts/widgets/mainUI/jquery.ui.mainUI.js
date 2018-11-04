@@ -4,14 +4,55 @@ $.widget("custom.mainUI", {
     var obj = this;
     var container = obj.element;
     var cadena = '';
-    cadena+= '<div id="mainui_top_search" class="mainui-top-search"></div>';
+    cadena+= '<div id="mainui_top_search" style="display:none" class="mainui-top-search z-depth-1">';
+    cadena+= '  <div class="search-container">';
+    cadena+= '    <div><i class="small material-icons">search</i></div>';
+    cadena+= '    <input id="search_input" type="search" placeholder="Buscar" class="browser-default">';
+    cadena+= '    <i id="search_clear" class="small material-icons">close</i></div>';
+    cadena+= '  <div>';
+    cadena+= '  </div>';
+    cadena+= '</div>';
     cadena+= '<div id="mainui_bottom_container" class="mainui-bottom-container">';
     cadena+= '  <div id="mainui_content" class="mainui-content"></div>';
-    cadena+= '  <div  id="mainui_left" class="mainui-left"></div>';
+    cadena+= '  <div  id="mainui_left" class="mainui-left">';
+    cadena+= '    <div  id="top_tools" class="top-tools"></div>';
+    cadena+= '    <div  id="cat_container" class="cat-container"></div>';
+    cadena+= '  </div>';
     cadena+= '</div>';
     container.html(cadena);
     obj.printCategories();
     obj.createHomeContent();
+
+    $('#search_input').on('search', function(){
+      this.value = this.value.replace(/[|&;$%@"<>()+,]/g, "");
+      if(this.value && this.value != ''){
+        obj.options.onAction({action:'search',value:this.value});
+      }
+   });
+   $('#search_clear').click(function(){
+      var val = $('#search_input').val();
+      if(val == ''){
+        obj.hideSearch();
+      }else{
+        obj.resetSearch();
+      }
+   });
+
+  },
+  resetSearch:function(){
+    var obj = this;
+    $('#search_input').val('');
+  },
+  showSearch:function(){
+    var obj = this;
+    $('#mainui_top_search').slideDown('fast');
+    $('#search_input').focus();
+  },
+  hideSearch:function(){
+    var obj = this;
+    obj.resetSearch();
+    $('#mainui_top_search').slideUp();
+    $('#search_input').blur();
   },
   createHomeContent:function(){
     var obj = this;
@@ -22,7 +63,7 @@ $.widget("custom.mainUI", {
   printCategories:function(){
     var obj = this;
     var list = obj.options.storedData.data.categories;
-
+    var tc = obj.options.storedData.data.top_category;
     /*
     count: 5
 description: ""
@@ -37,14 +78,36 @@ taxonomy: "category"
 */
     var cadena = '';
     //link a inicio
-    cadena+= '<div id="go_home" class="cat-home-btn">inicio</div>';
+    cadena+= '<div id="btn_search" class="cat-home-btn"><img  width="50" src="img/icon_search_55.png"></div>';
+    $('#top_tools').html(cadena);
 
+    cadena = '';
+    
+    //impresion de categoria superior
+    cadena+= '<div id="cat_item_'+tc.id+'" name="'+tc.name+'" slug="'+tc.slug+'" idref="'+tc.id+'" class="cat-item"><img  width="50" src="'+tc.acf.image.sizes.thumbnail+'"></div>';
     for(var x in list){
       var cat = list[x];
-      cadena+= '<div id="cat_item_'+cat.id+'" slug="'+cat.slug+'"  idref="'+cat.id+'" class="cat-item">'+cat.name+'</div>';
+      var image = cat.acf.image.sizes.thumbnail;
+      cadena+= '<div id="cat_item_'+cat.id+'" name="'+cat.name+'" slug="'+cat.slug+'" idref="'+cat.id+'" class="cat-item"><img  width="50" src="'+image+'"></div>';
     }
-    $('#mainui_left').html(cadena);
+    $('#cat_container').html(cadena);
+    var height = list.length*55;
 
+    $('#cat_container').animate({scrollTop:height}, 1000, 'swing', function() { 
+        $('#cat_container').animate({scrollTop:0}, 1500, 'swing', function() { });
+   });
+
+   $('.cat-item').each(function(){
+      $(this).click(function(){
+        var id = $(this).attr('idref');
+        var name = $(this).attr('name');
+        obj.options.onAction({id:id,action:'viewCategory',title:name});
+      });
+   });
+
+   $('#btn_search').click(function(){
+      obj.showSearch();
+   });
 
     /*
     var container = new Hammer(document.getElementById('bottomInfo_top_container'));
@@ -73,7 +136,8 @@ taxonomy: "category"
   },
   // default options
   options: {
-    data:null
+    data:null,
+    onAction:function(opc){}
   },
   //Logica del Widget---------------------------------------------------------------------------------------
   loadFiles: function () {

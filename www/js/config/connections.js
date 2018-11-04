@@ -4,7 +4,7 @@
  */
 define([], function(){
     return {
-        domain:'http://directoriocomercialdelcentro.com/wp-json/wp/v2/',
+        domain:'https://dicomercial.com/wp-json/wp/v2/',
 	    search:{
             //url:'search/%s?fields=id,title.rendered,link,type,excerpt,content,featured_image',
 			url:'posts', 
@@ -20,6 +20,17 @@ define([], function(){
 			},
             dataType:'json'
 		},
+		getPost:{
+			url:'posts', 
+			type:'GET',
+			params:{
+				//categories:0,
+				id:null,
+				fields:'id,title.rendered,link,type,acf',
+				//orderby:'relevance'
+			},
+            dataType:'json'
+		},
 		postsFromCategory:{
 			url:'posts', 
 			type:'GET',
@@ -27,7 +38,7 @@ define([], function(){
 				//categories:0,
 				page:1,
 				per_page:10,
-				fields:'id,title.rendered,link,type,acf',
+				fields:'id,title.rendered,link,type,acf,slug',
 				//orderby:'relevance'
 			},
             dataType:'json'
@@ -35,7 +46,12 @@ define([], function(){
 		categories:{
 			url:'categories',
 			type:'GET',
-            dataType:'json'
+			dataType:'json',
+			params:{
+				page:1,
+				per_page:50  //obtener hasta 50 categorias
+			}
+
 		},
 		mediaDetail:{
 			url:'http://www.directoriocomercialdelcentro.com/wp-json/wp/v2/media?slug=%s',
