@@ -4,11 +4,11 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="PhoneDialer">
-        <param name="android-package" value="com.teamnemitoff.phonedialer.PhoneDialer" />
-    </feature>
     <feature name="SocialSharing">
         <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    </feature>
+    <feature name="CallNumber">
+        <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber" />
     </feature>
     <name>dicomercial</name>
     <description>

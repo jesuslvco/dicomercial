@@ -1,0 +1,106 @@
+define(function(){
+    return[
+            //Alimentos---------------------------------------
+            {
+                label:'Algo para desayunar',
+                from:5,
+                to:11,
+                words:'desayuno',
+                img:'img/mosaico/desayuno.jpg'
+            },
+            {
+                label:'¿Unos taquitos?',
+                from:0,
+                to:11,
+                words:'tacos',
+                img:'img/mosaico/tacos.jpg'
+            },
+            {
+                label:'Comida mexicana',
+                from:13,
+                to:23,
+                words:'antojitos',
+                img:'img/mosaico/comida_mexiana.jpg'
+            },
+            {
+                label:'Mariscos',
+                from:12,
+                to:23,
+                words:'mariscos',
+                img:'img/mosaico/mariscos_2.jpg'
+            },
+            {
+                label:'Pizza',
+                from:12,
+                to:20,
+                words:'pizza',
+                img:'img/mosaico/pizza.jpg'
+            },
+            {
+                label:'¿Unos taquitos?',
+                from:17,
+                to:23,
+                words:'tacos',
+                img:'img/mosaico/tacos.jpg'
+            },
+            {
+                label:'Helados',
+                from:12,
+                to:19,
+                words:'helado',
+                img:'img/mosaico/helado.jpg'
+            },
+            {
+                label:'Productos de guayaba',
+                from:9,
+                to:16,
+                words:'guayaba',
+                img:'img/mosaico/guayaba.jpg'
+            },
+
+            //------------------Otros------------------------
+
+            {
+                label:'Novedades y accesorios',
+                from:9,
+                to:20,
+                words:'novedades',
+                img:'img/mosaico/accesorios.jpg'
+            },
+            {
+                label:'Hospedaje',
+                from:0,
+                to:24,
+                words:'hospedaje',
+                img:'img/mosaico/hotel.jpg'
+            },
+            {
+                label:'Spa',
+                from:0,
+                to:24,
+                words:'spa',
+                img:'img/mosaico/spa.jpg'
+            },
+            {
+                label:'Ropa',
+                from:0,
+                to:20,
+                words:'ropa',
+                img:'img/mosaico/ropa.jpg'
+            },
+             {
+                label:'Salud',
+                from:0,
+                to:24,
+                words:'salud',
+                img:'img/mosaico/doctor.jpg'
+            },
+            {
+                label:'Talleres mecanicos',
+                from:0,
+                to:24,
+                words:'mecanico',
+                img:'img/mosaico/car.jpg'
+            }
+    ]
+});

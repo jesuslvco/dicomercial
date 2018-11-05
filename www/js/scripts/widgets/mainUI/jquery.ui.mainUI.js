@@ -27,6 +27,7 @@ $.widget("custom.mainUI", {
       this.value = this.value.replace(/[|&;$%@"<>()+,]/g, "");
       if(this.value && this.value != ''){
         obj.options.onAction({action:'search',value:this.value});
+        $('#search_input').blur();
       }
    });
    $('#search_clear').click(function(){

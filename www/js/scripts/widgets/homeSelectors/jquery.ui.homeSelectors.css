@@ -1,0 +1,6 @@
+.custom-homeSelectors{
+    padding-top: 8px;
+}
+.custom-homeSelectors .card-title{
+    background-color: rgba(70,70,70,0.4);
+}

@@ -13,17 +13,19 @@ requirejs.config({
 			}
 });
 require(['config','router'],function (config) {
-	screen.orientation.lock('portrait');
-	if(window.plugins && window.plugins.phonedialer){
-		window.plugins.phonedialer.dial(
-			"2125551212", 
-			function(err) {
-			if (err == "empty") alert("Unknown phone number");
-			else alert("Dialer Error:" + err);    
-			},
-			function(success) { alert('Dialing succeeded'); }
-		);
-	}
+	//fija la pantalla en portrait
+	if(screen.orientation && screen.orientation.lock)
+		screen.orientation.lock('portrait');
+
+	//https://www.npmjs.com/package/cordova-plugin-call-number
+	//window.plugins.CallNumber.callNumber(onSuccess, onError, number, bypassAppChooser);
+
+	//https://www.npmjs.com/package/cordova-plugin-x-socialsharing#4-usage-on-ios-and-android
+	//<button onclick="window.plugins.socialsharing.shareViaTwitter('Message via Twitter')">message via Twitter</button>
+	//<button onclick="window.plugins.socialsharing.shareViaTwitter('Message and link via Twitter', null /* img */, 'http://www.x-services.nl')">msg and link via Twitter</button>
+	//<button onclick="window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">msg via Facebook (with errcallback)</button>
+	//<button onclick="window.plugins.socialsharing.shareViaInstagram('Message via Instagram', 'https://www.google.nl/images/srpr/logo4w.png', function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">msg via Instagram</button>
+	//...
 
 	    var v = 'version='+projectVersion;
 		//objeto principal para el aacceso a el codigo

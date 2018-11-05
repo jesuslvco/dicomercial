@@ -6,6 +6,7 @@ requirejs.config({
 		view:'scripts/widgets/view/jquery.ui.view',
 		categoryList:'scripts/widgets/categoryList/jquery.ui.categoryList',
 		viewPost:'scripts/widgets/viewPost/jquery.ui.viewPost',
+		homeSelectors:'scripts/widgets/homeSelectors/jquery.ui.homeSelectors',
 		spinner:'scripts/widgets/spinner/jquery.ui.spinner'
     },
 	shim: {
@@ -24,6 +25,9 @@ requirejs.config({
 		viewPost:{
 			exports:'viewPost'
 		},
+		homeSelectors:{
+			exports:'homeSelectors'
+		},
 		spinner:{
 			exports:'spinner'
 		}
@@ -31,9 +35,9 @@ requirejs.config({
     waitSeconds: 0
 });
 define(["router","storedData",  //modulos
-		"mainUI","categoryToSlider","view","categoryList","viewPost","spinner"],function  //widgets
+		"mainUI","categoryToSlider","view","categoryList","viewPost","spinner","homeSelectors"],function  //widgets
 		(router,storedData, //modulos
-		mainUI,categoryToSlider,view,categoryList,viewPost,spinner){ //widgets
+		mainUI,categoryToSlider,view,categoryList,viewPost,spinner,homeSelectors){ //widgets
 	
 	var widgets = {
 		showSpinner:function(){
@@ -161,7 +165,7 @@ define(["router","storedData",  //modulos
 							autoplaySpeed:8000,
 							autoplay:true
 						});
-
+						/*
 						var cadena = '<div id="homeRandomPost"></div>';
 						container.append(cadena); //inicializa contenido principal
 						//activa widgets de inicio
@@ -174,6 +178,19 @@ define(["router","storedData",  //modulos
 							slideToShow:2,
 							autoplaySpeed:15000,
 							autoplay:false
+						});
+						*/
+						var cadena = '<div id="homeSelectors"></div>';
+						container.append(cadena); //inicializa contenido principal
+						//activa widgets de inicio
+						$('#homeSelectors').homeSelectors({
+							path:require.toUrl("homeSelectors"),
+							list:router.config.home_selectors,
+							onAction:function(params) {
+								if(params.action == 'search'){
+									obj.search({text:params.text});
+								}
+							}
 						});
 				},
 				onAction:function(opc){

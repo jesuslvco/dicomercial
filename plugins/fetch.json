@@ -7,14 +7,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "com.teamnemitoff.phonedialer": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-phonedialer@^0.3.1"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-x-socialsharing": {
     "source": {
       "type": "registry",
@@ -29,6 +21,14 @@
       "id": "es6-promise-plugin@^4.1.0"
     },
     "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-call-number": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-call-number"
+    },
+    "is_top_level": true,
     "variables": {}
   }
 }

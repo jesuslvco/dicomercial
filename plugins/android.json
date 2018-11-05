@@ -10,10 +10,10 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "org.mdm_mobile"
     },
-    "com.teamnemitoff.phonedialer": {
+    "cordova-plugin-x-socialsharing": {
       "PACKAGE_NAME": "org.mdm_mobile"
     },
-    "cordova-plugin-x-socialsharing": {
+    "cordova-plugin-call-number": {
       "PACKAGE_NAME": "org.mdm_mobile"
     }
   },

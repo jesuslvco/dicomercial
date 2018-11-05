@@ -13,7 +13,9 @@ requirejs.config({
 			}
 });
 require(['config','router'],function (config) {
+	//fija la pantalla en portrait
 	screen.orientation.lock('portrait');
+
 	if(window.plugins && window.plugins.phonedialer){
 		window.plugins.phonedialer.dial(
 			"2125551212", 
