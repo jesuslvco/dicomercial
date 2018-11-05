@@ -10,7 +10,7 @@
   "com.teamnemitoff.phonedialer": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-phonedialer"
+      "id": "cordova-plugin-phonedialer@^0.3.1"
     },
     "is_top_level": true,
     "variables": {}

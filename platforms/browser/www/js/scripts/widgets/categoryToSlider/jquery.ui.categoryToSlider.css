@@ -1,9 +1,9 @@
-.custom.categoryToSlider{
-
+.custom-categoryToSlider{
+  margin-top: 8px;
 
 }
 
-.custom.categoryToSlider img{
+.custom-categoryToSlider img{
     outline-style:none;
     box-shadow:none;
     border-color:transparent;

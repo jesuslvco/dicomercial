@@ -13,6 +13,18 @@ requirejs.config({
 			}
 });
 require(['config','router'],function (config) {
+	screen.orientation.lock('portrait');
+	if(window.plugins && window.plugins.phonedialer){
+		window.plugins.phonedialer.dial(
+			"2125551212", 
+			function(err) {
+			if (err == "empty") alert("Unknown phone number");
+			else alert("Dialer Error:" + err);    
+			},
+			function(success) { alert('Dialing succeeded'); }
+		);
+	}
+
 	    var v = 'version='+projectVersion;
 		//objeto principal para el aacceso a el codigo
 	    requirejs.config({
