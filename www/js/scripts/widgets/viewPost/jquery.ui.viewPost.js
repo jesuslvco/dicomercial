@@ -16,6 +16,7 @@ $.widget("custom.viewPost", {
       var address = data.address;
       var logo = (data.logo)?data.logo.sizes.thumbnail:'img/no-image-rectangle.jpg';
       var image = (data.image)?data.image.sizes.medium:'img/no-image-square.jpg';
+      var design = (data.design)?data.design.sizes.medium:null;
       var phones = (data.phonenumber)?data.phonenumber.trim().split(','):[];
       var web = data.website;
       var youtube = data.youtube;
@@ -38,7 +39,10 @@ $.widget("custom.viewPost", {
         social+= '<span class="social-link"><a href="'+twitter+'" target="_blank"><img src="img/icons/twitter.png"></a></span>';
       }
       social+='</p>';
-
+      var _design = '';
+      if(design && design != ''){
+        _design+= '<img src="'+design+'" width="100%>';
+      }
 
       var cadena = '';
       cadena+= ''
@@ -49,7 +53,7 @@ $.widget("custom.viewPost", {
       cadena+= '    <span class="card-title">'+title+'</span>';
       cadena+= '  </div>';
       cadena+= '  <div class="card-content">';
-      cadena+= '    <img src="'+logo+'" width="120" style="float:left" ><span>'+content+'</span>'+social;
+      cadena+= '    <img src="'+logo+'" width="120" style="clear:both" >'+_design+'<span>'+content+'</span>'+social;
       cadena+= '  </div>';
       cadena+= '</div>';
 

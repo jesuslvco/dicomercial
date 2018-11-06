@@ -3,6 +3,7 @@ requirejs.config({
     paths: {
         mainUI:'scripts/widgets/mainUI/jquery.ui.mainUI',
 		categoryToSlider:'scripts/widgets/categoryToSlider/jquery.ui.categoryToSlider',
+		categoryToMosaic:'scripts/widgets/categoryToMosaic/jquery.ui.categoryToMosaic',
 		view:'scripts/widgets/view/jquery.ui.view',
 		categoryList:'scripts/widgets/categoryList/jquery.ui.categoryList',
 		viewPost:'scripts/widgets/viewPost/jquery.ui.viewPost',
@@ -15,6 +16,9 @@ requirejs.config({
 		},
 		categoryToSlider:{
 			exports:'categoryToSlider'
+		},
+		categoryToMosaic:{
+			exports:'categoryToMosaic'
 		},
 		view:{
 			exports:'view'
@@ -35,9 +39,9 @@ requirejs.config({
     waitSeconds: 0
 });
 define(["router","storedData",  //modulos
-		"mainUI","categoryToSlider","view","categoryList","viewPost","spinner","homeSelectors"],function  //widgets
+		"mainUI","categoryToSlider","categoryToMosaic","view","categoryList","viewPost","spinner","homeSelectors"],function  //widgets
 		(router,storedData, //modulos
-		mainUI,categoryToSlider,view,categoryList,viewPost,spinner,homeSelectors){ //widgets
+		mainUI,categoryToSlider,categoryToMosaic,view,categoryList,viewPost,spinner,homeSelectors){ //widgets
 	
 	var widgets = {
 		showSpinner:function(){
@@ -167,21 +171,25 @@ define(["router","storedData",  //modulos
 								autoplay:true
 							});
 						}
-						/*
-						var cadena = '<div id="homeRandomPost"></div>';
+						
+						var cadena = '<div id="homePremiumPost"></div>';
 						container.append(cadena); //inicializa contenido principal
 						//activa widgets de inicio
 						
-						var sliderCat = storedData.data.slider_category.id;
-						$('#homeRandomPost').categoryToSlider({
-							path:require.toUrl("categoryToSlider"),
+						var mosaicCat = storedData.data.premium.id;
+						$('#homePremiumPost').categoryToMosaic({
+							path:require.toUrl("categoryToMosaic"),
 							storedData:storedData,
+							idCat:mosaicCat,
 							per_page:10,
-							slideToShow:2,
-							autoplaySpeed:15000,
-							autoplay:false
+							onAction:function(opc) {
+								if(opc.action == 'viewPost'){
+									var title = opc.title;
+									obj.viewPost(opc);
+								}
+							}
 						});
-						*/
+						
 						var cadena = '<div id="homeSelectors"></div>';
 						container.append(cadena); //inicializa contenido principal
 						//activa widgets de inicio
