@@ -14,9 +14,6 @@ requirejs.config({
 });
 require(['config','router'],function (config) {
 	//fija la pantalla en portrait
-	if(screen.orientation && screen.orientation.lock)
-		screen.orientation.lock('portrait');
-
 	//https://www.npmjs.com/package/cordova-plugin-call-number
 	//window.plugins.CallNumber.callNumber(onSuccess, onError, number, bypassAppChooser);
 
