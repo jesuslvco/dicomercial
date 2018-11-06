@@ -155,16 +155,18 @@ define(["router","storedData",  //modulos
 							cadena+= '<div id="homeSlider"></div>';
 						container.html(cadena); //inicializa contenido principal
 						//activa widgets de inicio
-						var sliderCat = storedData.data.slider_category.id;
-						$('#homeSlider').categoryToSlider({
-							path:require.toUrl("categoryToSlider"),
-							storedData:storedData,
-							idCat:sliderCat,
-							slideToShow:1,
-							per_page:5,
-							autoplaySpeed:8000,
-							autoplay:true
-						});
+						if(storedData.data.slider_category){
+							var sliderCat = storedData.data.slider_category.id;
+							$('#homeSlider').categoryToSlider({
+								path:require.toUrl("categoryToSlider"),
+								storedData:storedData,
+								idCat:sliderCat,
+								slideToShow:1,
+								per_page:5,
+								autoplaySpeed:8000,
+								autoplay:true
+							});
+						}
 						/*
 						var cadena = '<div id="homeRandomPost"></div>';
 						container.append(cadena); //inicializa contenido principal

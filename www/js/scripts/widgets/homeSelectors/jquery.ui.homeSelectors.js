@@ -5,25 +5,40 @@ $.widget("custom.homeSelectors", {
     var list = obj.options.list;
     var hour = (new Date()).getHours();
     var l = [];
+    var f = []; //cotenedor de comidas
 
     for(var x in list){  //extrae elementos por horario
       var item = list[x];
       var ini = item.from;
       var end = item.to;
       if(ini <= hour && end >= hour){
-        l.push(item);
+        if(item.type == 'food'){
+          f.push(item);  
+        }else{
+          l.push(item);
+        }
       }
-    } 
+    }
+
+    if(f.length % 2){ //si no es par
+     f =  f.slice(1,-1);
+    }
+    //une los listados
+    l = f.concat(l);
 
     var cadena = '<div class="row">';
         cadena+= '  <div class="container">'
         for(var x in l){
           var item = l[x];
-          cadena+= '<div class="home-selector-item col s12 m6 l4" text="'+item.words+'">';
+
+          var size = (item.type=='food')?'s6 m3 l2':'s12 m6 l4';
+          var titleShow = (item.type=='food')?'text-mini':'';
+
+          cadena+= '<div class="home-selector-item col '+size+'" text="'+item.words+'">';
           cadena+= '  <div class="card">';
           cadena+= '    <div class="card-image">';
           cadena+= '      <img src="'+item.img+'">';
-          cadena+= '      <span class="card-title">'+item.label+'</span>';
+          cadena+= '      <span class="card-title '+titleShow+'">'+item.label+'</span>';
           cadena+= '    </div>';
           cadena+= '  </div>';
           cadena+= '</div>';

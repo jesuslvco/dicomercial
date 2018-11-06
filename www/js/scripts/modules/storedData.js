@@ -4,6 +4,7 @@ define(['config','getData'],function(config,getData){
         categories:[],
         top_category:null,
         slider_category:null,
+        premium:null,
         searches:[],
         results:[],
         currentShow:null,
@@ -28,8 +29,11 @@ define(['config','getData'],function(config,getData){
                     var cat = list[x];
                     var type = (cat.acf)?(cat.acf.category_type)?cat.acf.category_type:'normal':'normal';
 
-                    if(type == 'premium'){
-                        obj.data.slider_category = cat;
+                    if(type == 'slider' || type == 'premium'){
+                        if(type == 'slider')
+                            obj.data.slider_category = cat;
+                        if(type == 'premium')
+                            obj.data.premium = cat;
                     }else{
                         if(cat.acf && cat.acf.image){  //si la categoria tiene imagen
                             if(cat.acf && cat.acf.position && cat.acf.position == 1 && !obj.data.top_category){
