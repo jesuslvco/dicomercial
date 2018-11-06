@@ -94,7 +94,6 @@ define(["router","storedData",  //modulos
 						if(opc.action == 'dial'){
 							var number = opc.num;
 							//llamada
-							if(window.plugins && window.plugins.CallNumber && window.plugins.CallNumber.callNumber)
 								window.plugins.CallNumber.callNumber(
 									function(){ //success
 
