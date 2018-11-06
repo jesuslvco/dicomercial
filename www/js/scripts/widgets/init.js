@@ -91,7 +91,17 @@ define(["router","storedData",  //modulos
 					slug:slug,
 					storedData:storedData,
 					onAction:function(opc){
-						debugger;
+						if(opc.action == 'dial'){
+							var number = opc.num;
+							//llamada
+							if(window.plugins && window.plugins.CallNumber && window.plugins.CallNumber.callNumber)
+								window.plugins.CallNumber.callNumber(
+									function(){ //success
+
+									}, function(){ //error
+										 M.toast({html: 'Error al realizar la llamada al número:'+number});
+									}, number);
+						}
 					}
 				});
 			});
@@ -168,7 +178,12 @@ define(["router","storedData",  //modulos
 								slideToShow:1,
 								per_page:5,
 								autoplaySpeed:8000,
-								autoplay:true
+								autoplay:true,
+								onAction:function(opc) {
+								if(opc.action == 'viewPost'){
+										obj.viewPost(opc);
+									}
+								}
 							});
 						}
 						

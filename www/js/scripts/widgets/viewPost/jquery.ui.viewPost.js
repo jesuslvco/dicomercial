@@ -15,15 +15,21 @@ $.widget("custom.viewPost", {
       var content = data.content;
       var address = data.address;
       var logo = (data.logo)?data.logo.sizes.thumbnail:'img/no-image-rectangle.jpg';
-      var image = (data.image)?data.image.sizes.medium:'img/no-image-square.jpg';
-      var design = (data.design)?data.design.sizes.medium:null;
+      var image = (data.image)?data.image.sizes['thumb-large']:'img/no-image-square.jpg';
+      var design = (data.design)?data.design.sizes['thumb-large']:null;
       var phones = (data.phonenumber)?data.phonenumber.trim().split(','):[];
+      
       var web = data.website;
       var youtube = data.youtube;
       var facebook = data.facebook;
       var instagram = data.instagram;
       var googlemaps = data.googlemaps;
       var twitter = data.twitter;
+
+      //fix phoneNumbers
+      for(var x in phones){
+        phones[x] =  phones[x].replace(/[|&;$%@"<>()+,]/g, "").replace(/\s/g, "");
+      }
 
       var social = '';
       if(web && web != ''){
@@ -60,10 +66,14 @@ $.widget("custom.viewPost", {
 
 
 
-      if(phones && phones != ''){
+      if(phones && phones.length > 0){
+        var f_p = [];
+        for(var x in phones)
+          f_p.push(phones[x].replace(/^(\d{3})(\d{3})(\d{4}).*/, '($1) $2-$3'));
+
         cadena+= '<div class="card">';
         cadena+= '  <div class="card-content telephone-content">';
-        cadena+= '    <i class="Small material-icons icon-blue">local_phone</i><span>'+phones.join(',')+'</span>';
+        cadena+= '    <i class="Small material-icons icon-blue">local_phone</i><span>'+f_p.join('</br>')+'</span>';
         cadena+= '  </div>';
         cadena+= '</div>';
       }
@@ -98,9 +108,47 @@ $.widget("custom.viewPost", {
         cadena+= '</div>';
       }
 
+      //manejo del despliegue del boton de llamada
+      var icons = {
+        '_1':{icon:'looks_one',color:'red'},
+        '_2':{icon:'looks_two',color:'yellow darken-1'},
+        '_3':{icon:'looks_3',color:'green'},
+        '_4':{icon:'looks_4',color:'blue'},
+        '_5':{icon:'looks_5',color:'purple lighten-4'},
+        '_6':{icon:'looks_6',color:'orange lighten-3'},
+      }
+
+      if(phones.length > 0){
+        var maxPhone = (phones.length > 6)?6:phones.length;
+        cadena+= '<div class="fixed-action-btn phonecaller">';
+        cadena+= '  <a pos="'+0+'" class="btn-floating btn-large pulse '+icons['_1'].color+' '+((phones.length == 1)?'num-dialer':'')+'" number="'+phones[0]+'">';
+        cadena+= '    <i class="large material-icons">local_phone</i>';
+        cadena+= '  </a>';
+        if(phones.length > 1){
+          cadena+= '<ul>';
+          for(var x = 0; x < maxPhone; x++){
+              var icon = icons['_'+(x+1)];
+              var num = phones[x];
+              cadena+= '<li><a class="btn-floating num-dialer '+icon.color+'" pos="'+0+'" number="'+num+'"><i class="material-icons">'+icon.icon+'</i></a></li>';
+          }
+          cadena+= '</ul>';
+        }
+      }    
+
       obj.element.html(cadena);
 
+      $('.phonecaller').floatingActionButton({
+          direction:'top',
+          hoverEnabled:false,
+          toolbarEnabled:false
+      });
 
+      $('.phonecaller .num-dialer').each(function() {
+        $(this).click(function () {
+            var number = $(this).attr('number');
+            obj.options.onAction({action:'dial',num:number});
+        })
+      });
 
 
       
