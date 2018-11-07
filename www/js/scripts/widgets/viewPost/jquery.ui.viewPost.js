@@ -31,9 +31,9 @@ $.widget("custom.viewPost", {
         phones[x] =  phones[x].replace(/[|&;$%@"<>()+,]/g, "").replace(/\s/g, "");
       }
 
-      var social = '';
+      var social = '<p>';
       if(web && web != ''){
-        social+= '<a href="'+web+'" target="_blank" class="waves-effect waves-light btn">Página WEB</a><p style="padding-top:8px;>';
+        social+= '<a href="'+web+'" target="_blank" class="waves-effect waves-light btn" style="clear:both;">Página WEB</a>';
       }
       if(facebook && facebook != ''){
         social+= '<span class="social-link"><a href="'+facebook+'" target="_blank"><img src="img/icons/facebook.png"></a></span>';
@@ -47,7 +47,7 @@ $.widget("custom.viewPost", {
       social+='</p>';
       var _design = '';
       if(design && design != ''){
-        _design+= '<img src="'+design+'" width="100%>';
+        _design+= '<img src="'+design+'" width="100%" class="materialboxed">';
       }
 
       var cadena = '';
@@ -134,8 +134,10 @@ $.widget("custom.viewPost", {
           cadena+= '</ul>';
         }
       }    
-
+      cadena+='';
       obj.element.html(cadena);
+
+      $('.materialboxed').materialbox();
 
       $('.phonecaller').floatingActionButton({
           direction:'top',
