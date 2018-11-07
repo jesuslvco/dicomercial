@@ -17,7 +17,7 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <icon src="www/app_logo.png" />
+        <icon src="www/img/1.5x/app_logo_round.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
