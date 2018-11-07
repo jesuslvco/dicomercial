@@ -31,9 +31,9 @@ $.widget("custom.viewPost", {
         phones[x] =  phones[x].replace(/[|&;$%@"<>()+,]/g, "").replace(/\s/g, "");
       }
 
-      var social = '<p>';
+      var social = '';
       if(web && web != ''){
-        social+= '<a href="'+web+'" target="_blank" class="waves-effect waves-light btn" style="clear:both;">Página WEB</a>';
+        social+= '<p style="margin-bottom:8px;"><a href="'+web+'" target="_blank" class="waves-effect waves-light btn" style="clear:both;">Página WEB</a></p>';
       }
       if(facebook && facebook != ''){
         social+= '<span class="social-link"><a href="'+facebook+'" target="_blank"><img src="img/icons/facebook.png"></a></span>';
@@ -44,7 +44,7 @@ $.widget("custom.viewPost", {
       if(twitter && twitter != ''){
         social+= '<span class="social-link"><a href="'+twitter+'" target="_blank"><img src="img/icons/twitter.png"></a></span>';
       }
-      social+='</p>';
+
       var _design = '';
       if(design && design != ''){
         _design+= '<img src="'+design+'" width="100%" class="materialboxed">';
