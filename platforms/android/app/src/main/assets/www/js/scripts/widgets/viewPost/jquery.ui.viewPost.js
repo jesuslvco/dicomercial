@@ -15,8 +15,10 @@ $.widget("custom.viewPost", {
       var content = data.content;
       var address = data.address;
       var logo = (data.logo)?data.logo.sizes.thumbnail:'img/no-image-rectangle.jpg';
-      var image = (data.image)?data.image.sizes.medium:'img/no-image-square.jpg';
+      var image = (data.image)?data.image.sizes['thumb-large']:'img/no-image-square.jpg';
+      var design = (data.design)?data.design.sizes['thumb-large']:null;
       var phones = (data.phonenumber)?data.phonenumber.trim().split(','):[];
+      
       var web = data.website;
       var youtube = data.youtube;
       var facebook = data.facebook;
@@ -24,9 +26,14 @@ $.widget("custom.viewPost", {
       var googlemaps = data.googlemaps;
       var twitter = data.twitter;
 
-      var social = '';
+      //fix phoneNumbers
+      for(var x in phones){
+        phones[x] =  phones[x].replace(/[|&;$%@"<>()+,]/g, "").replace(/\s/g, "");
+      }
+
+      var social = '<p>';
       if(web && web != ''){
-        social+= '<a href="'+web+'" target="_blank" class="waves-effect waves-light btn">Página WEB</a><p style="padding-top:8px;>';
+        social+= '<a href="'+web+'" target="_blank" class="waves-effect waves-light btn" style="clear:both;">Página WEB</a>';
       }
       if(facebook && facebook != ''){
         social+= '<span class="social-link"><a href="'+facebook+'" target="_blank"><img src="img/icons/facebook.png"></a></span>';
@@ -38,7 +45,10 @@ $.widget("custom.viewPost", {
         social+= '<span class="social-link"><a href="'+twitter+'" target="_blank"><img src="img/icons/twitter.png"></a></span>';
       }
       social+='</p>';
-
+      var _design = '';
+      if(design && design != ''){
+        _design+= '<img src="'+design+'" width="100%" class="materialboxed">';
+      }
 
       var cadena = '';
       cadena+= ''
@@ -49,17 +59,21 @@ $.widget("custom.viewPost", {
       cadena+= '    <span class="card-title">'+title+'</span>';
       cadena+= '  </div>';
       cadena+= '  <div class="card-content">';
-      cadena+= '    <img src="'+logo+'" width="120" style="float:left" ><span>'+content+'</span>'+social;
+      cadena+= '    <img src="'+logo+'" width="120" style="clear:both" >'+_design+'<span>'+content+'</span>'+social;
       cadena+= '  </div>';
       cadena+= '</div>';
 
 
 
 
-      if(phones && phones != ''){
+      if(phones && phones.length > 0){
+        var f_p = [];
+        for(var x in phones)
+          f_p.push(phones[x].replace(/^(\d{3})(\d{3})(\d{4}).*/, '($1) $2-$3'));
+
         cadena+= '<div class="card">';
         cadena+= '  <div class="card-content telephone-content">';
-        cadena+= '    <i class="Small material-icons icon-blue">local_phone</i><span>'+phones.join(',')+'</span>';
+        cadena+= '    <i class="Small material-icons icon-blue">local_phone</i><span>'+f_p.join('</br>')+'</span>';
         cadena+= '  </div>';
         cadena+= '</div>';
       }
@@ -94,9 +108,49 @@ $.widget("custom.viewPost", {
         cadena+= '</div>';
       }
 
+      //manejo del despliegue del boton de llamada
+      var icons = {
+        '_1':{icon:'looks_one',color:'red'},
+        '_2':{icon:'looks_two',color:'yellow darken-1'},
+        '_3':{icon:'looks_3',color:'green'},
+        '_4':{icon:'looks_4',color:'blue'},
+        '_5':{icon:'looks_5',color:'purple lighten-4'},
+        '_6':{icon:'looks_6',color:'orange lighten-3'},
+      }
+
+      if(phones.length > 0){
+        var maxPhone = (phones.length > 6)?6:phones.length;
+        cadena+= '<div class="fixed-action-btn phonecaller">';
+        cadena+= '  <a pos="'+0+'" class="btn-floating btn-large pulse '+icons['_1'].color+' '+((phones.length == 1)?'num-dialer':'')+'" number="'+phones[0]+'">';
+        cadena+= '    <i class="large material-icons">local_phone</i>';
+        cadena+= '  </a>';
+        if(phones.length > 1){
+          cadena+= '<ul>';
+          for(var x = 0; x < maxPhone; x++){
+              var icon = icons['_'+(x+1)];
+              var num = phones[x];
+              cadena+= '<li><a class="btn-floating num-dialer '+icon.color+'" pos="'+0+'" number="'+num+'"><i class="material-icons">'+icon.icon+'</i></a></li>';
+          }
+          cadena+= '</ul>';
+        }
+      }    
+      cadena+='';
       obj.element.html(cadena);
 
+      $('.materialboxed').materialbox();
 
+      $('.phonecaller').floatingActionButton({
+          direction:'top',
+          hoverEnabled:false,
+          toolbarEnabled:false
+      });
+
+      $('.phonecaller .num-dialer').each(function() {
+        $(this).click(function () {
+            var number = $(this).attr('number');
+            obj.options.onAction({action:'dial',num:number});
+        })
+      });
 
 
       

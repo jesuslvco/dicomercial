@@ -24,7 +24,7 @@ $.widget("custom.categoryToSlider", {
             var post = data[x];
             var image = (post.acf.logo)?post.acf.logo.sizes.medium_large:'img/no-image-square.jpg';
             var title = post.title.rendered;
-            cadena += '<div idref="'+post.id+'" class="main-slider-item" ><img src="' + image + '" border="0" ></div>';
+            cadena += '<div idref="'+post.id+'" slug="'+post.slug+'" label="'+post.title.rendered+'" class="main-slider-item" ><img src="' + image + '" border="0" ></div>';
         }
 
         cadena+= '</div>';
@@ -41,9 +41,10 @@ $.widget("custom.categoryToSlider", {
         
 
         $('#'+obj.id+'_slider_container').slick(objConfig).on('click',function(event, slick,image){
-          var active = $('.main-slider-item.slick-active').attr('idref');
-          console.log(active);
-
+          var idref= $('.main-slider-item.slick-active').attr('idref');
+          var title = $('.main-slider-item.slick-active').attr('label');
+          var slug = $('.main-slider-item.slick-active').attr('slug');
+          obj.options.onAction({action:'viewPost',id:idref,slug:slug,title:title});
         });
      });
   },

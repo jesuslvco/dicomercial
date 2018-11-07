@@ -50,7 +50,7 @@ define(["slick"], function(){
 		
         $.when(
             $('<link>', {rel: 'stylesheet',type: 'text/css',href:'js/libs/materialize/css/materialize.css?'+v}).appendTo('head'),
-            $('<link>', {rel: 'stylesheet',type: 'text/css',href:'https://fonts.googleapis.com/icon?family=Material+Icons&'+v}).appendTo('head'),
+           // $('<link>', {rel: 'stylesheet',type: 'text/css',href:'https://fonts.googleapis.com/icon?family=Material+Icons&'+v}).appendTo('head'),
 
             $('<link>', {rel: 'stylesheet',type: 'text/css',href:'js/libs/slick-1.8.1/slick.css?'+v}).appendTo('head'),
             $('<link>', {rel: 'stylesheet',type: 'text/css',href:'js/libs/slick-1.8.1/slick-theme.css?'+v}).appendTo('head'),
