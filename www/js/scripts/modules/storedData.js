@@ -2,9 +2,11 @@ define(['config','getData'],function(config,getData){
     
     var data = {
         categories:[],
+        all_categories:[],
         top_category:null,
         slider_category:null,
         premium:null,
+        system:null,
         searches:[],
         results:[],
         currentShow:null,
@@ -24,16 +26,19 @@ define(['config','getData'],function(config,getData){
             service.url = domain+service.url;
             obj.getData(service,{},function(_data){  //success
                 var list = _data.result;
+                obj.data.all_categories = list;
                 var fixed_cat = null;
                 for (var x in list){
                     var cat = list[x];
                     var type = (cat.acf)?(cat.acf.category_type)?cat.acf.category_type:'normal':'normal';
 
-                    if(type == 'slider' || type == 'premium'){
+                    if(type == 'slider' || type == 'premium' || type =="system"){
                         if(type == 'slider')
                             obj.data.slider_category = cat;
                         if(type == 'premium')
                             obj.data.premium = cat;
+                        if(type == 'system')
+                            obj.data.system = cat;
                     }else{
                         if(cat.acf && cat.acf.image){  //si la categoria tiene imagen
                             if(cat.acf && cat.acf.position && cat.acf.position == 1 && !obj.data.top_category){
@@ -88,6 +93,18 @@ define(['config','getData'],function(config,getData){
                 M.toast({html: 'fallo al cargar la entrada'});
             })
         },
+        getCategoryInfo:function (id) {
+            var obj = this;
+            var list = obj.data.all_categories;
+            var r = null;
+            for(var x in list){
+                if (list[x].id == id){
+                    r = list[x];
+                    break;
+                }
+            }
+            return r;
+        }
         //---------------------------------
         
 

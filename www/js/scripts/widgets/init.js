@@ -8,6 +8,7 @@ requirejs.config({
 		categoryList:'scripts/widgets/categoryList/jquery.ui.categoryList',
 		viewPost:'scripts/widgets/viewPost/jquery.ui.viewPost',
 		homeSelectors:'scripts/widgets/homeSelectors/jquery.ui.homeSelectors',
+		menu:'scripts/widgets/menu/jquery.ui.menu',
 		spinner:'scripts/widgets/spinner/jquery.ui.spinner'
     },
 	shim: {
@@ -32,6 +33,9 @@ requirejs.config({
 		homeSelectors:{
 			exports:'homeSelectors'
 		},
+		menu:{
+			exports:'menu'
+		},
 		spinner:{
 			exports:'spinner'
 		}
@@ -39,9 +43,9 @@ requirejs.config({
     waitSeconds: 0
 });
 define(["router","storedData",  //modulos
-		"mainUI","categoryToSlider","categoryToMosaic","view","categoryList","viewPost","spinner","homeSelectors"],function  //widgets
+		"mainUI","categoryToSlider","categoryToMosaic","view","categoryList","viewPost","spinner","homeSelectors","menu"],function  //widgets
 		(router,storedData, //modulos
-		mainUI,categoryToSlider,categoryToMosaic,view,categoryList,viewPost,spinner,homeSelectors){ //widgets
+		mainUI,categoryToSlider,categoryToMosaic,view,categoryList,viewPost,spinner,homeSelectors,menu){ //widgets
 	
 	var widgets = {
 		showSpinner:function(){
@@ -101,6 +105,12 @@ define(["router","storedData",  //modulos
 										 M.toast({html: 'Error al realizar la llamada al número:'+number});
 									}, number);
 						}
+						if(opc.action == 'viewCategory'){
+							obj.viewCategory(opc);
+						}
+						if(opc.action == 'viewPost'){
+							obj.viewPost(opc);
+						}
 					}
 				});
 			});
@@ -112,7 +122,6 @@ define(["router","storedData",  //modulos
 				var cadena = '<div id="category_'+opc.id+'"></div>';
 				container.html(cadena); //inicializa contenido principal
 				//activa widgets de inicio
-				var sliderCat = storedData.data.slider_category.id;
 				$('#category_'+opc.id+'').categoryList({
 					path:require.toUrl("categoryList"),
 					storedData:storedData,
@@ -156,7 +165,14 @@ define(["router","storedData",  //modulos
 			//spinner
 			$('#main_spinner').spinner({
 				path:require.toUrl("spinner"),
-				logo:'img/app_logo_300.jpg'
+				logo:'img/logos/0.5x/app_logo_square@0.5x.png'
+			});
+			//menu
+			$('body').append('<div id="main_menu"></div>');
+			$('#main_menu').menu({
+				path:require.toUrl("menu"),
+				storedData:storedData,
+				image:'img/logos/300w/app_logo_rectangle_solid300.png'
 			});
 			//UI
 
@@ -164,9 +180,18 @@ define(["router","storedData",  //modulos
 				path:require.toUrl("mainUI"),
 				storedData:storedData,
 				homeContent:function(container){
-						var cadena = '<div class="home-logo"><img src="img/app_logo_square.png"></div>';
+						var cadena = '<div id="main_header_logo" class="main-header-logo">';
+							cadena+= '	<div class="home-logo center">';
+							cadena+= '		<img src="img/logos/300w/app_logo_rectangle300.png">';
+							cadena+= '	</div>';
+							cadena+= '	<i id="btn_menu" class="small material-icons">dehaze</i>';
+							cadena+= '</div>';
 							cadena+= '<div id="homeSlider"></div>';
 						container.html(cadena); //inicializa contenido principal
+						$('#btn_menu').click(function() {
+							$('#main_menu').menu('open');
+						});
+
 						//activa widgets de inicio
 						if(storedData.data.slider_category){
 							var sliderCat = storedData.data.slider_category.id;

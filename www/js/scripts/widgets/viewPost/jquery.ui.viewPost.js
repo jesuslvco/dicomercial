@@ -3,7 +3,7 @@ $.widget("custom.viewPost", {
 
   // default options
   options: {
-
+    storedData:null,
   },
   //Logica del Widget---------------------------------------------------------------------------------------
   createHtml:function(){
@@ -25,6 +25,52 @@ $.widget("custom.viewPost", {
       var instagram = data.instagram;
       var googlemaps = data.googlemaps;
       var twitter = data.twitter;
+
+
+
+      //creacion de encabezado para desplegar categorias o entradas relacionadas
+      var cats = data.related_categories;
+      var posts = data.related_post;
+      var header = '<div class="viewpost-header">';
+          header+= '  <div class="viewpost-header-categories">';
+          header+= '    <div class="row">';
+
+          for(var x in cats){
+            var item = obj.options.storedData.getCategoryInfo(cats[x].term_id);
+            if(item){
+              var id = item.id
+              var hd_name = item.name;
+              var hd_image = (item.acf && item.acf.image && item.acf.image.sizes)?item.acf.image.sizes.medium:'';
+
+                header+= '<div class="col s6 m4 l3 viewpost-header-category" idref="'+id+'" label="'+hd_name+'">';
+                header+= '  <div class="card">';
+                header+= '    <div class="card-image">';
+                header+= '      <img src="'+hd_image+'">';
+                header+= '    </div>';
+                header+= '  </div>';
+                header+= '  <div class="card-content">';
+                header+=      hd_name;
+                header+= '  </div>';
+                header+= '</div>';
+
+            }
+
+          }
+          header+= '    </div>'; 
+          header+= '  </div>'; 
+          header+= '  <div class="viewpost-header-posts">';
+          header+= '    <ul class="collection">';
+          for(var x in posts){
+            var item = posts[x];
+            var hd_title = item.post_title;
+            var hd_slug = item.post_name;
+            var hd_id = item.ID;
+            header+= '    <a href="#!" label="'+hd_title+'" slug="'+hd_slug+'" idref="'+hd_id+'" class="collection-item header-collection-item">'+hd_title+'</a>';
+            
+          }
+          header+= '    </ul>'; 
+          header+= '  </div>'; 
+          header+= '</div>'; 
 
       //fix phoneNumbers
       for(var x in phones){
@@ -59,7 +105,11 @@ $.widget("custom.viewPost", {
       cadena+= '    <span class="card-title">'+title+'</span>';
       cadena+= '  </div>';
       cadena+= '  <div class="card-content">';
-      cadena+= '    <img src="'+logo+'" width="120" style="clear:both" >'+_design+'<span>'+content+'</span>'+social;
+      cadena+=      header; //inclusion de los links a categorias y entradas
+      if(!cats)
+      cadena+= '    <img src="'+logo+'" width="120" style="clear:both" >';
+      cadena+=      _design;
+      cadena+= '    <span>'+content+'</span>'+social;
       cadena+= '  </div>';
       cadena+= '</div>';
 
@@ -137,22 +187,38 @@ $.widget("custom.viewPost", {
       cadena+='';
       obj.element.html(cadena);
 
-      $('.materialboxed').materialbox();
+      $('#'+obj.id+' .materialboxed').materialbox();
 
-      $('.phonecaller').floatingActionButton({
+      $('#'+obj.id+' .phonecaller').floatingActionButton({
           direction:'top',
           hoverEnabled:false,
           toolbarEnabled:false
       });
 
-      $('.phonecaller .num-dialer').each(function() {
+      $('#'+obj.id+' .phonecaller .num-dialer').each(function() {
         $(this).click(function () {
             var number = $(this).attr('number');
             obj.options.onAction({action:'dial',num:number});
         })
       });
 
+      //categorias internas
+      $('#'+obj.id+' .viewpost-header-category').each(function() {
+         $(this).click(function(){
+            var id = $(this).attr('idref');
+            var title = $(this).attr('label');
+            obj.options.onAction({action:'viewCategory',id:id,title:title});
+         });
+      });
 
+      $('#'+obj.id+' .header-collection-item').each(function() {
+         $(this).click(function(){
+            var id = $(this).attr('idref');
+            var slug = $(this).attr('slug');
+            var title = $(this).attr('label');
+            obj.options.onAction({action:'viewPost',id:id,title:title,slug:slug});
+         });
+      });
       
     })
   },

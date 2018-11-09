@@ -144,17 +144,25 @@ input:focus {
     outline: none;
     border: specify yours;
  }
-.home-logo{
-    padding-top: 10px;
-    padding-bottom: 5px;
-	width: 100%;
-	display: flex;
+.main-header-logo{
+    width: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
 
+    padding-top: 10px;
+    padding-bottom: 5px;
+    width: 100%;
     background-color: rgb(240, 211, 133);
     height: 60px;
+}
 
+.home-logo{
+    background-color: rgb(240, 211, 133);
+    flex: 100%;
+}
+#btn_menu{
+    width: 46px;
 }
 .home-logo img{
     height: 45px;
