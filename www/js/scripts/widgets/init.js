@@ -215,7 +215,7 @@ define(["router","storedData",  //modulos
 								}
 							});
 						}
-						
+						/*
 						var cadena = '<div id="homePremiumPost"></div>';
 						container.append(cadena); //inicializa contenido principal
 						//activa widgets de inicio
@@ -226,7 +226,7 @@ define(["router","storedData",  //modulos
 								path:require.toUrl("categoryToSlider"),
 								storedData:storedData,
 								idCat:sliderCat,
-								slideToShow:2,
+								slideToShow:3,
 								per_page:8,
 								autoplaySpeed:10000,
 								autoplay:true,
@@ -238,7 +238,7 @@ define(["router","storedData",  //modulos
 							});
 
 						}
-						/*
+						
 						var mosaicCat = storedData.data.premium.id;
 						$('#homePremiumPost').categoryToMosaic({
 							path:require.toUrl("categoryToMosaic"),
