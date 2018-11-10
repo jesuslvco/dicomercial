@@ -187,7 +187,7 @@ define(["router","storedData",  //modulos
 				homeContent:function(container){
 						var cadena = '<div id="main_header_logo" class="main-header-logo">';
 							cadena+= '	<div class="home-logo center">';
-							cadena+= '		<img src="img/logos/300w/app_logo_rectangle300.png">';
+							cadena+= '		<img src="img/logos/300w/app_logo_hor_rectangle.png">';
 							cadena+= '	</div>';
 							cadena+= '	<i id="btn_menu" class="small material-icons">dehaze</i>';
 							cadena+= '</div>';
@@ -236,7 +236,7 @@ define(["router","storedData",  //modulos
 									}
 								}
 							});
-	
+
 						}
 						/*
 						var mosaicCat = storedData.data.premium.id;
@@ -258,10 +258,14 @@ define(["router","storedData",  //modulos
 						//activa widgets de inicio
 						$('#homeSelectors').homeSelectors({
 							path:require.toUrl("homeSelectors"),
+							storedData:storedData,
 							list:router.config.home_selectors,
-							onAction:function(params) {
-								if(params.action == 'search'){
-									obj.search({text:params.text});
+							onAction:function(opc) {
+								if(opc.action == 'search'){
+									obj.search({text:opc.text});
+								}
+								if(opc.action == 'viewCategory'){
+									obj.viewCategory(opc);
 								}
 							}
 						});

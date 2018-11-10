@@ -2,7 +2,7 @@ $.widget("custom.menu", {
   //--------Codigo de Widget-------------------------------------------------------------------------------
   createHtml:function(){
     var obj = this;
-    var cat = obj.options.storedData.data.system;
+    var cat = obj.options.storedData.data.menu;
     var id = cat.id;
     var cadena = '';
     obj.loadPost(id,function(data) {

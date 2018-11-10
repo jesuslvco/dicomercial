@@ -6,7 +6,7 @@ define(['config','getData'],function(config,getData){
         top_category:null,
         slider_category:null,
         premium:null,
-        system:null,
+        menu:null,
         searches:[],
         results:[],
         currentShow:null,
@@ -31,14 +31,17 @@ define(['config','getData'],function(config,getData){
                 for (var x in list){
                     var cat = list[x];
                     var type = (cat.acf)?(cat.acf.category_type)?cat.acf.category_type:'normal':'normal';
+                    var reserved = ["slider","premium","menu","home_shortcut","system", "hidden"]
 
-                    if(type == 'slider' || type == 'premium' || type =="system"){
+                    if(reserved.indexOf(type) >= 0){
                         if(type == 'slider')
                             obj.data.slider_category = cat;
                         if(type == 'premium')
                             obj.data.premium = cat;
-                        if(type == 'system')
-                            obj.data.system = cat;
+                        if(type == 'menu')
+                            obj.data.menu = cat;
+                        if(type == 'home_shortcut')
+                            obj.data.home_shortcut = cat;
                     }else{
                         if(cat.acf && cat.acf.image){  //si la categoria tiene imagen
                             if(cat.acf && cat.acf.position && cat.acf.position == 1 && !obj.data.top_category){
