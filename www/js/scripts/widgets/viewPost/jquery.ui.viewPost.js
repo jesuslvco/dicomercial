@@ -14,8 +14,8 @@ $.widget("custom.viewPost", {
 
       var content = data.content;
       var address = data.address;
-      var logo = (data.logo)?data.logo.sizes.thumbnail:'img/no-image-rectangle.jpg';
-      var image = (data.image)?data.image.sizes['thumb-large']:'img/no-image-square.jpg';
+      var logo = (data.logo)?data.logo.sizes.thumbnail:null;
+      var image = (data.image)?data.image.sizes['thumb-large']:null;
       var design = (data.design)?data.design.sizes['thumb-large']:null;
       var phones = (data.phonenumber)?data.phonenumber.trim().split(','):[];
       
@@ -101,13 +101,19 @@ $.widget("custom.viewPost", {
 
       cadena+= '<div class="card">';
       cadena+= '   <div class="card-image">';
-      cadena+= '    <img src="'+image+'">';
-      cadena+= '    <span class="card-title">'+title+'</span>';
+
+      if(image){
+        cadena+= '    <img src="'+image+'">';
+        cadena+= '    <span class="card-title">'+title+'</span>';
+      }
       cadena+= '  </div>';
       cadena+= '  <div class="card-content">';
       cadena+=      header; //inclusion de los links a categorias y entradas
+
       if(!cats)
-      cadena+= '    <img src="'+logo+'" width="120" style="clear:both" >';
+        if(logo)
+          cadena+= '    <img src="'+logo+'" width="120" style="clear:both" >';
+
       cadena+=      _design;
       cadena+= '    <span>'+content+'</span>'+social;
       cadena+= '  </div>';

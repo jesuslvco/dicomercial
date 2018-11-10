@@ -172,7 +172,12 @@ define(["router","storedData",  //modulos
 			$('#main_menu').menu({
 				path:require.toUrl("menu"),
 				storedData:storedData,
-				image:'img/logos/300w/app_logo_rectangle_solid300.png'
+				image:'img/logos/300w/app_logo_rectangle_solid300.png',
+				onAction:function(opc) {
+					if(opc.action == 'viewPost'){
+							obj.viewPost(opc);
+						}
+					}
 			});
 			//UI
 
@@ -214,7 +219,26 @@ define(["router","storedData",  //modulos
 						var cadena = '<div id="homePremiumPost"></div>';
 						container.append(cadena); //inicializa contenido principal
 						//activa widgets de inicio
-						
+						//activa widgets de inicio
+						if(storedData.data.premium){
+							var sliderCat = storedData.data.premium.id;
+							$('#homePremiumPost').categoryToSlider({
+								path:require.toUrl("categoryToSlider"),
+								storedData:storedData,
+								idCat:sliderCat,
+								slideToShow:2,
+								per_page:8,
+								autoplaySpeed:10000,
+								autoplay:true,
+								onAction:function(opc) {
+								if(opc.action == 'viewPost'){
+										obj.viewPost(opc);
+									}
+								}
+							});
+	
+						}
+						/*
 						var mosaicCat = storedData.data.premium.id;
 						$('#homePremiumPost').categoryToMosaic({
 							path:require.toUrl("categoryToMosaic"),
@@ -227,7 +251,7 @@ define(["router","storedData",  //modulos
 									obj.viewPost(opc);
 								}
 							}
-						});
+						});*/
 						
 						var cadena = '<div id="homeSelectors"></div>';
 						container.append(cadena); //inicializa contenido principal

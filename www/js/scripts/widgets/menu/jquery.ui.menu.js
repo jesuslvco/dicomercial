@@ -21,9 +21,10 @@ $.widget("custom.menu", {
         for(var x in list){
             var item = list[x];
             var id = item.id;
+            var slug = item.slug;
             var title = item.title.rendered;
             var icon = (item.acf.icon && item.acf.icon != '')?'<i class="material-icons">'+item.acf.icon+'</i>':''
-            cadena+= '  <li class="main-menu-item" type="post" idref="'+id+'"><a href="#!">'+icon+''+title+'</a></li>';
+            cadena+= '  <li class="main-menu-item" type="post" idref="'+id+'" slug="'+slug+'" title="'+title+'"><a href="#!">'+icon+''+title+'</a></li>';
         }
 
 
@@ -37,6 +38,16 @@ $.widget("custom.menu", {
 
         obj.element.html(cadena);
         $('#main_menu_container').sidenav();
+        $('.main-menu-item').each(function(){
+          $(this).click(function(){
+            var idref = $(this).attr('idref');
+            var slug = $(this).attr('slug');
+            var title = $(this).attr('title');
+
+            obj.options.onAction({action:'viewPost',id:idref,slug:slug,title:title});
+            obj.close();
+          });
+        });
         
       }
     });
