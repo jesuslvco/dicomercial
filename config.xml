@@ -27,4 +27,6 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.1" />
     <plugin name="cordova-plugin-call-number" spec="^1.0.1" />
     <engine name="android" spec="~7.1.1" />
+    <preference name="android-targetSdkVersion" value="26" /> 
+    <preference name="android-minSdkVersion" value="26" />
 </widget>
