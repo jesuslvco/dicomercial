@@ -237,21 +237,24 @@ define(["router","storedData",  //modulos
 								}
 							});
 
-						}
-						
-						var mosaicCat = storedData.data.premium.id;
-						$('#homePremiumPost').categoryToMosaic({
-							path:require.toUrl("categoryToMosaic"),
-							storedData:storedData,
-							idCat:mosaicCat,
-							per_page:10,
-							onAction:function(opc) {
-								if(opc.action == 'viewPost'){
-									var title = opc.title;
-									obj.viewPost(opc);
+						}*/
+						if(storedData.data.premium){
+							var cadena = '<div id="homePremiumPost"></div>';
+							container.append(cadena);
+							var mosaicCat = storedData.data.premium.id;
+							$('#homePremiumPost').categoryToMosaic({
+								path:require.toUrl("categoryToMosaic"),
+								storedData:storedData,
+								idCat:mosaicCat,
+								per_page:8,
+								onAction:function(opc) {
+									if(opc.action == 'viewPost'){
+										var title = opc.title;
+										obj.viewPost(opc);
+									}
 								}
-							}
-						});*/
+							});
+						}
 						
 						var cadena = '<div id="homeSelectors"></div>';
 						container.append(cadena); //inicializa contenido principal
