@@ -3,7 +3,7 @@ $.widget("custom.viewPost", {
 
   // default options
   options: {
-
+    storedData:null,
   },
   //Logica del Widget---------------------------------------------------------------------------------------
   createHtml:function(){
@@ -14,8 +14,8 @@ $.widget("custom.viewPost", {
 
       var content = data.content;
       var address = data.address;
-      var logo = (data.logo)?data.logo.sizes.thumbnail:'img/no-image-rectangle.jpg';
-      var image = (data.image)?data.image.sizes['thumb-large']:'img/no-image-square.jpg';
+      var logo = (data.logo)?data.logo.sizes.thumbnail:null;
+      var image = (data.image)?data.image.sizes['thumb-large']:null;
       var design = (data.design)?data.design.sizes['thumb-large']:null;
       var phones = (data.phonenumber)?data.phonenumber.trim().split(','):[];
       
@@ -26,14 +26,60 @@ $.widget("custom.viewPost", {
       var googlemaps = data.googlemaps;
       var twitter = data.twitter;
 
+
+
+      //creacion de encabezado para desplegar categorias o entradas relacionadas
+      var cats = data.related_categories;
+      var posts = data.related_post;
+      var header = '<div class="viewpost-header">';
+          header+= '  <div class="viewpost-header-categories">';
+          header+= '    <div class="row">';
+
+          for(var x in cats){
+            var item = obj.options.storedData.getCategoryInfo(cats[x].term_id);
+            if(item){
+              var id = item.id
+              var hd_name = item.name;
+              var hd_image = (item.acf && item.acf.image && item.acf.image.sizes)?item.acf.image.sizes.medium:'';
+
+                header+= '<div class="col s6 m4 l3 viewpost-header-category" idref="'+id+'" label="'+hd_name+'">';
+                header+= '  <div class="card">';
+                header+= '    <div class="card-image">';
+                header+= '      <img src="'+hd_image+'">';
+                header+= '    </div>';
+                header+= '  </div>';
+                header+= '  <div class="card-content">';
+                header+=      hd_name;
+                header+= '  </div>';
+                header+= '</div>';
+
+            }
+
+          }
+          header+= '    </div>'; 
+          header+= '  </div>'; 
+          header+= '  <div class="viewpost-header-posts">';
+          header+= '    <ul class="collection">';
+          for(var x in posts){
+            var item = posts[x];
+            var hd_title = item.post_title;
+            var hd_slug = item.post_name;
+            var hd_id = item.ID;
+            header+= '    <a href="#!" label="'+hd_title+'" slug="'+hd_slug+'" idref="'+hd_id+'" class="collection-item header-collection-item">'+hd_title+'</a>';
+            
+          }
+          header+= '    </ul>'; 
+          header+= '  </div>'; 
+          header+= '</div>'; 
+
       //fix phoneNumbers
       for(var x in phones){
         phones[x] =  phones[x].replace(/[|&;$%@"<>()+,]/g, "").replace(/\s/g, "");
       }
 
-      var social = '<p>';
+      var social = '';
       if(web && web != ''){
-        social+= '<a href="'+web+'" target="_blank" class="waves-effect waves-light btn" style="clear:both;">Página WEB</a>';
+        social+= '<p style="margin-bottom:8px;"><a href="'+web+'" target="_blank" class="waves-effect waves-light btn" style="clear:both;">Página WEB</a></p>';
       }
       if(facebook && facebook != ''){
         social+= '<span class="social-link"><a href="'+facebook+'" target="_blank"><img src="img/icons/facebook.png"></a></span>';
@@ -44,7 +90,7 @@ $.widget("custom.viewPost", {
       if(twitter && twitter != ''){
         social+= '<span class="social-link"><a href="'+twitter+'" target="_blank"><img src="img/icons/twitter.png"></a></span>';
       }
-      social+='</p>';
+
       var _design = '';
       if(design && design != ''){
         _design+= '<img src="'+design+'" width="100%" class="materialboxed">';
@@ -55,11 +101,21 @@ $.widget("custom.viewPost", {
 
       cadena+= '<div class="card">';
       cadena+= '   <div class="card-image">';
-      cadena+= '    <img src="'+image+'">';
-      cadena+= '    <span class="card-title">'+title+'</span>';
+
+      if(image){
+        cadena+= '    <img src="'+image+'">';
+        cadena+= '    <span class="card-title">'+title+'</span>';
+      }
       cadena+= '  </div>';
       cadena+= '  <div class="card-content">';
-      cadena+= '    <img src="'+logo+'" width="120" style="clear:both" >'+_design+'<span>'+content+'</span>'+social;
+      cadena+=      header; //inclusion de los links a categorias y entradas
+
+      if(!cats)
+        if(logo)
+          cadena+= '    <img src="'+logo+'" width="120" style="clear:both" >';
+
+      cadena+=      _design;
+      cadena+= '    <span>'+content+'</span>'+social;
       cadena+= '  </div>';
       cadena+= '</div>';
 
@@ -137,22 +193,38 @@ $.widget("custom.viewPost", {
       cadena+='';
       obj.element.html(cadena);
 
-      $('.materialboxed').materialbox();
+      $('#'+obj.id+' .materialboxed').materialbox();
 
-      $('.phonecaller').floatingActionButton({
+      $('#'+obj.id+' .phonecaller').floatingActionButton({
           direction:'top',
           hoverEnabled:false,
           toolbarEnabled:false
       });
 
-      $('.phonecaller .num-dialer').each(function() {
+      $('#'+obj.id+' .phonecaller .num-dialer').each(function() {
         $(this).click(function () {
             var number = $(this).attr('number');
             obj.options.onAction({action:'dial',num:number});
         })
       });
 
+      //categorias internas
+      $('#'+obj.id+' .viewpost-header-category').each(function() {
+         $(this).click(function(){
+            var id = $(this).attr('idref');
+            var title = $(this).attr('label');
+            obj.options.onAction({action:'viewCategory',id:id,title:title});
+         });
+      });
 
+      $('#'+obj.id+' .header-collection-item').each(function() {
+         $(this).click(function(){
+            var id = $(this).attr('idref');
+            var slug = $(this).attr('slug');
+            var title = $(this).attr('label');
+            obj.options.onAction({action:'viewPost',id:id,title:title,slug:slug});
+         });
+      });
       
     })
   },

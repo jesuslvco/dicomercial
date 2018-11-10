@@ -34,3 +34,7 @@
 .social-link img{
     width: 56px;
 }
+
+.viewpost-header-category .card-content{
+    padding: 0px;
+}

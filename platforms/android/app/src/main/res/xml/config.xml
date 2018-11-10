@@ -26,6 +26,8 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
-    <icon src="www/app_logo.png" />
+    <icon src="www/img/logos/1x/app_logo_square.png" />
     <preference name="loglevel" value="DEBUG" />
+    <preference name="android-targetSdkVersion" value="26" />
+    <preference name="android-minSdkVersion" value="26" />
 </widget>

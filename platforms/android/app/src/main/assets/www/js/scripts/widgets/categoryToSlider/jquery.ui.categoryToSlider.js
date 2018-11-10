@@ -41,9 +41,10 @@ $.widget("custom.categoryToSlider", {
         
 
         $('#'+obj.id+'_slider_container').slick(objConfig).on('click',function(event, slick,image){
-          var idref= $('.main-slider-item.slick-active').attr('idref');
-          var title = $('.main-slider-item.slick-active').attr('label');
-          var slug = $('.main-slider-item.slick-active').attr('slug');
+          var elem = $('#'+obj.id+' .main-slider-item.slick-active');
+          var idref= elem.attr('idref');
+          var title = elem.attr('label');
+          var slug = elem.attr('slug');
           obj.options.onAction({action:'viewPost',id:idref,slug:slug,title:title});
         });
      });
