@@ -14,10 +14,12 @@ $.widget("custom.homeSelectors", {
           var title = item.title.rendered;
           var catId = (item.acf.category_id)?'catid="'+item.acf.category_id+'"':null;
           var words = (!(item.acf.category_id) && item.acf.search_words && item.acf.search_words != '')? 'text="'+item.acf.search_words+'"':null;
+          //var slug = (!catId && !words && (item.acf.post && item.acf.post.ID))? 'slug="'+item.acf.post.post_name+'" idref="'+item.acf.post.ID+'"':null;
+          var slug = ((item.acf.post && item.acf.post.ID))? 'slug="'+item.acf.post.post_name+'" idref="'+item.acf.post.ID+'"':null;
           var image = (item.acf.img_shortcut && item.acf.img_shortcut.sizes && item.acf.img_shortcut.sizes.medium)?item.acf.img_shortcut.sizes.medium:null;
           if((catId || words) && image){
             var size = 's12 m6 l4';
-            cadena+= '<div class="home-selector-item col '+size+'" '+catId+' '+words+' title="'+title+'">';
+            cadena+= '<div class="home-selector-item col '+size+'" '+catId+' '+words+' '+slug+' title="'+title+'">';
             cadena+= '  <div class="card">';
             cadena+= '    <div class="card-image">';
             cadena+= '      <img src="'+image+'">';
@@ -36,12 +38,17 @@ $.widget("custom.homeSelectors", {
           $(this).click(function(){
             var catid = $(this).attr('catid');
             var words = $(this).attr('text');
+            var slug = $(this).attr('slug');
+            var id = $(this).attr('idref');
             var title = $(this).attr('title');
             if(catid){
               obj.options.onAction({action:'viewCategory',title:title,id:catid});
             }
             if(words){
               obj.options.onAction({action:'search',text:text});
+            }
+            if(slug){
+              obj.options.onAction({action:'viewPost',title:title,slug:slug,id:id});
             }
             
           });

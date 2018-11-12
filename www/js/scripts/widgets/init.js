@@ -270,6 +270,9 @@ define(["router","storedData",  //modulos
 								if(opc.action == 'viewCategory'){
 									obj.viewCategory(opc);
 								}
+								if(opc.action == 'viewPost'){
+									obj.viewPost(opc);
+								}
 							}
 						});
 				},
