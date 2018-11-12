@@ -44,14 +44,23 @@ define(['config','getData'],function(config,getData){
                             obj.data.home_shortcut = cat;
                     }else{
                         if(cat.acf && cat.acf.image){  //si la categoria tiene imagen
-                            if(cat.acf && cat.acf.position && cat.acf.position == 1 && !obj.data.top_category){
-                                obj.data.top_category = cat;
-                            }else{
+                                if(cat.acf && !cat.acf.position || cat.acf.position == '' || cat.acf.position == '0')
+                                    cat.acf.position = '300';
+                                cat.acf.position = parseInt(cat.acf.position);
+
                                 obj.data.categories.push(cat);
-                            }
                         }
                     }
                 }
+
+                var compare = function(a,b) {
+                    if (a.acf.position < b.acf.position)
+                        return -1;
+                    if (a.acf.position > b.acf.position)
+                        return 1;
+                    return 0;
+                }
+                obj.data.categories.sort(compare);
 
                 if($.isFunction(func))func(_data);
             },function(_data){ //error

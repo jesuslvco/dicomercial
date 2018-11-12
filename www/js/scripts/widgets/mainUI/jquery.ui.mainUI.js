@@ -83,9 +83,6 @@ taxonomy: "category"
     $('#top_tools').html(cadena);
 
     cadena = '';
-    
-    //impresion de categoria superior
-    cadena+= '<div id="cat_item_'+tc.id+'" name="'+tc.name+'" slug="'+tc.slug+'" idref="'+tc.id+'" class="cat-item"><img  width="50" src="'+tc.acf.image.sizes.thumbnail+'"></div>';
     for(var x in list){
       var cat = list[x];
       var image = cat.acf.image.sizes.thumbnail;

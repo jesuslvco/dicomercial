@@ -20,8 +20,16 @@ define(["main","language","modules"],function(main,language,modules){
 	return{
 		init:function(){
 			$('document').ready(function(){
+                
+                setTimeout(function(){
+                    $('#home_splash').css('background-color','#98d4ff');
+                     $('#home_splash_logo').fadeIn('slow');
+                },500);
                 modules.storedData.init(function(){ //precarga la informacion necesaria antes de iniciar el app
                    main.init();
+                   $('#home_splash').fadeOut('slow',function(){
+                       $('#home_splash').remove();
+                    });
                 })
 			});
 		}
