@@ -17,7 +17,7 @@ $.widget("custom.homeSelectors", {
           //var slug = (!catId && !words && (item.acf.post && item.acf.post.ID))? 'slug="'+item.acf.post.post_name+'" idref="'+item.acf.post.ID+'"':null;
           var slug = ((item.acf.post && item.acf.post.ID))? 'slug="'+item.acf.post.post_name+'" idref="'+item.acf.post.ID+'"':null;
           var image = (item.acf.img_shortcut && item.acf.img_shortcut.sizes && item.acf.img_shortcut.sizes.medium)?item.acf.img_shortcut.sizes.medium:null;
-          if((catId || words) && image){
+          if((catId || words || slug) && image){
             var size = 's12 m6 l4';
             cadena+= '<div class="home-selector-item col '+size+'" '+catId+' '+words+' '+slug+' title="'+title+'">';
             cadena+= '  <div class="card">';

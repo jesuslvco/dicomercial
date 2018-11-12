@@ -22,14 +22,17 @@ define(["main","language","modules"],function(main,language,modules){
 			$('document').ready(function(){
                 
                 setTimeout(function(){
-                    $('#home_splash').css('background-color','#98d4ff');
+                    $('#home_splash').css({'background-color':'#98d4ff',opacity:100});
                      $('#home_splash_logo').fadeIn('slow');
                 },500);
                 modules.storedData.init(function(){ //precarga la informacion necesaria antes de iniciar el app
                    main.init();
-                   $('#home_splash').fadeOut('slow',function(){
-                       $('#home_splash').remove();
-                    });
+                   $('#home_splash_logo').fadeOut('slow',function(){
+                        $('#home_splash').css({'background-color':'#fff',opacity:0});
+                        setTimeout(function(){
+                            $('#home_splash').remove();
+                        },1000);
+                   });
                 })
 			});
 		}
