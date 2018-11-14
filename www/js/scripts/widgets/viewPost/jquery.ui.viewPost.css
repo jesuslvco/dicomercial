@@ -38,3 +38,8 @@
 .viewpost-header-category .card-content{
     padding: 0px;
 }
+.header-post-image{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}

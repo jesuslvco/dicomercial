@@ -42,9 +42,9 @@ requirejs.config({
     },
     waitSeconds: 0
 });
-define(["router","storedData",  //modulos
+define(["router","storedData","socialSharing", //modulos
 		"mainUI","categoryToSlider","categoryToMosaic","view","categoryList","viewPost","spinner","homeSelectors","menu"],function  //widgets
-		(router,storedData, //modulos
+		(router,storedData,socialSharing, //modulos
 		mainUI,categoryToSlider,categoryToMosaic,view,categoryList,viewPost,spinner,homeSelectors,menu){ //widgets
 	
 	var widgets = {
@@ -110,6 +110,9 @@ define(["router","storedData",  //modulos
 						}
 						if(opc.action == 'viewPost'){
 							obj.viewPost(opc);
+						}
+						if(opc.action == 'share'){
+							socialSharing.shareAll(opc.url);
 						}
 					}
 				});

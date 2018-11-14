@@ -10,6 +10,8 @@ $.widget("custom.viewPost", {
     var obj = this;
     obj.getPostData(function(data){
       var title = data.title.rendered;
+      var post_url = data.link;
+      var post_id = data.id;
       data = data.acf;
 
       var content = data.content;
@@ -110,10 +112,14 @@ $.widget("custom.viewPost", {
       cadena+= '  <div class="card-content">';
       cadena+=      header; //inclusion de los links a categorias y entradas
 
+      //imagen y compartir-----------
+      cadena+= '  <div class="header-post-image"> ';
       if(!cats)
         if(logo)
-          cadena+= '    <img src="'+logo+'" width="120" style="clear:both" >';
+          cadena+= '   <img src="'+logo+'" width="120" >';
 
+      cadena+= '<a id="'+post_id+'_share" class="waves-effect waves-light btn-large"><i url="'+post_url+'" class="Medium material-icons">share</i></a></div>';
+      //--------------------------
       cadena+=      _design;
       cadena+= '    <span>'+content+'</span>'+social;
       cadena+= '  </div>';
@@ -133,6 +139,24 @@ $.widget("custom.viewPost", {
         cadena+= '  </div>';
         cadena+= '</div>';
       }
+
+      if(youtube && youtube != '' && obj.isURL(youtube) && youtube.split('?').length > 1){
+        var urlVar = youtube.split('?')[1].split('&')[0];
+        if(urlVar.length > 3 && urlVar.substr(0,2) == 'v='){  //si tiene el id del video
+          urlVar = urlVar.substr(2,urlVar.length);
+          youtube = 'https://www.youtube.com/embed/'+urlVar;
+          //youtube = youtube.replace("watch?v=", "embed/");
+          cadena+= '<div class="card">';
+          cadena+= '  <div class="card-content">';
+          cadena+= '    <div class="video-container">';
+          cadena+= '      <iframe width="853" height="480" src="'+youtube+'" frameborder="0" allowfullscreen></iframe>';
+          cadena+= '    </div>';
+          cadena+= '  </div>';
+          cadena+= '</div>';
+        }
+
+      }
+
       if(address && address != ''){
       cadena+= '<div class="card">';
       cadena+= '  <div class="card-content">';
@@ -153,16 +177,7 @@ $.widget("custom.viewPost", {
       cadena+= '</div>';
       }
 
-      if(youtube && youtube != ''){
-        youtube = youtube.replace("watch?v=", "embed/");
-        cadena+= '<div class="card">';
-        cadena+= '  <div class="card-content">';
-        cadena+= '    <div class="video-container">';
-        cadena+= '      <iframe width="853" height="480" src="'+youtube+'" frameborder="0" allowfullscreen></iframe>';
-        cadena+= '    </div>';
-        cadena+= '  </div>';
-        cadena+= '</div>';
-      }
+      
 
       //manejo del despliegue del boton de llamada
       var icons = {
@@ -225,6 +240,11 @@ $.widget("custom.viewPost", {
             obj.options.onAction({action:'viewPost',id:id,title:title,slug:slug});
          });
       });
+
+      $('#'+post_id+'_share').click(function(){
+        var url = $(this).attr('url');
+        obj.options.onAction({action:'share',url:url});
+      });
       
     })
   },
@@ -269,7 +289,15 @@ $.widget("custom.viewPost", {
       //	obj.workspace.maxWidth = w_width;
     }
   },
-
+  isURL:function(str) {
+    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return pattern.test(str);
+  },
   // The constructor
   _create: function () {
     var obj = this;

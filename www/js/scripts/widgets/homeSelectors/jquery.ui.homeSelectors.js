@@ -6,6 +6,22 @@ $.widget("custom.homeSelectors", {
     var hour = (new Date()).getHours();
     obj.loadCategoryData(function(data){
         var l = data.result;
+        for(var x in l){
+          if(!l[x].acf.position || l[x].acf.position == 0){
+            l[x].acf.position = 200;
+          }else{
+            l[x].acf.position = parseInt(l[x].acf.position);
+          }
+        }
+
+        var compare = function(a,b) {
+            if (a.acf.position < b.acf.position)
+                return -1;
+            if (a.acf.position > b.acf.position)
+                return 1;
+            return 0;
+        }
+        l.sort(compare);
 
         var cadena = '<div class="row">';
         cadena+= '  <div class="container">'
