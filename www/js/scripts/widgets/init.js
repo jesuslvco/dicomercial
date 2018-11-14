@@ -114,6 +114,14 @@ define(["router","storedData","socialSharing", //modulos
 						if(opc.action == 'share'){
 							socialSharing.shareAll(opc.url);
 						}
+						if(opc.action == 'shareFacebook'){
+							socialSharing.shareFacebook(opc.url);
+						}
+						if(opc.action == 'shareTwitter'){
+							socialSharing.shareTwitter(opc.url);
+						}
+						
+
 					}
 				});
 			});

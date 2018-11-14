@@ -21,7 +21,7 @@ define(function(){
 			var obj = this;
 			//var logoOnline = obj.modules.config.onlineLogo;
 			//if(obj.modules.config.isApp){
-				window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null /* img */, url /* url */, function() {console.log('share ok')});
+				window.plugins.socialsharing.shareViaFacebook('', null /* img */, url /* url */, function() {console.log('share ok')});
 			/*}else{
 				
 				if(obj.checkSocialApi('facebook')){
@@ -51,7 +51,7 @@ define(function(){
 			var obj = this;
 			//var logoOnline = obj.modules.config.onlineLogo;
 			//if(obj.modules.config.isApp){
-				window.plugins.socialsharing.shareViaTwitter('Message and link via Twitter', null, url);
+				window.plugins.socialsharing.shareViaTwitter('', null, url);
 			/*}else{
 				
 				var text = "dicomercial.com";

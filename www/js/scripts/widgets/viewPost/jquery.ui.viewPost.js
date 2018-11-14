@@ -116,15 +116,23 @@ $.widget("custom.viewPost", {
       cadena+= '  <div class="header-post-image"> ';
       if(!cats)
         if(logo)
-          cadena+= '   <img src="'+logo+'" width="120" >';
+          cadena+= '   <img src="'+logo+'" width="120" height="120" >';
 
-      //temporal------
-      var current  = (new Date()).getTime();
-      var limit = (new Date(2018,11,16)).getTime();
-      //-----------
-      cadena+= '<a id="'+post_id+'_share" url="'+post_url+'" class="waves-effect waves-light btn-large"><i class="Medium material-icons">share</i></a>';
+            //temporal------
+            var current  = (new Date()).getTime();
+            var limit = (new Date(2018,11,16)).getTime();
+            //-----------
+      cadena+= '<a id="'+post_id+'_share" url="'+post_url+'" class="dropdown-trigger btn" href="#" data-target="'+post_id+'dropdown"><i class="Medium material-icons">share</i></a>';
+
+      cadena+= '<ul id="'+post_id+'dropdown" class="dropdown-content">';
+      cadena+= '  <li id="'+post_id+'_share_fb" url="'+post_url+'" ><a href="#!"><img src="img/icons/facebook.png" width="50" height="50" ></a></li>';
+      cadena+= '  <li id="'+post_id+'_share_tw" url="'+post_url+'"><a href="#!"><img src="img/icons/twitter.png" width="50" height="50" ></a></li>';
+      cadena+= '  <li class="divider" tabindex="-1"></li>';
+      cadena+= '  <li id="'+post_id+'_share_other" url="'+post_url+'"><a href="#!">Otros</a></li>';
+      cadena+= '</ul>';
 
       cadena+= '</div>';
+
       //--------------------------
       cadena+=      _design;
       cadena+= '    <span>'+content+'</span>'+social;
@@ -216,6 +224,8 @@ $.widget("custom.viewPost", {
 
       $('#'+obj.id+' .materialboxed').materialbox();
 
+      $('#'+post_id+'_share').dropdown();
+
       $('#'+obj.id+' .phonecaller').floatingActionButton({
           direction:'top',
           hoverEnabled:false,
@@ -247,10 +257,20 @@ $.widget("custom.viewPost", {
          });
       });
 
-      $('#'+post_id+'_share').click(function(){
+      //compartir eventos
+      $('#'+post_id+'_share_fb').click(function(){
+        var url = $(this).attr('url');
+        obj.options.onAction({action:'shareFacebook',url:url});
+      });
+      $('#'+post_id+'_share_tw').click(function(){
+        var url = $(this).attr('url');
+        obj.options.onAction({action:'shareTwitter',url:url});
+      });
+      $('#'+post_id+'_share_other').click(function(){
         var url = $(this).attr('url');
         obj.options.onAction({action:'share',url:url});
       });
+
       
     })
   },
