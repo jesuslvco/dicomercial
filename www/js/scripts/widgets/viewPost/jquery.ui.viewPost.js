@@ -122,7 +122,7 @@ $.widget("custom.viewPost", {
       var current  = (new Date()).getTime();
       var limit = (new Date(2018,11,16)).getTime();
       //-----------
-      //cadena+= '<a id="'+post_id+'_share" url="'+post_url+'" class="waves-effect waves-light btn-large"><i class="Medium material-icons">share</i></a>';
+      cadena+= '<a id="'+post_id+'_share" url="'+post_url+'" class="waves-effect waves-light btn-large"><i class="Medium material-icons">share</i></a>';
 
       cadena+= '</div>';
       //--------------------------
