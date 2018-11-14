@@ -60,13 +60,14 @@ define(function(){
 			}*/
 		},
 		shareAll:function(url){
+            debugger;
 			// this is the complete list of currently supported params you can pass to the plugin (all optional)
 				var options = {
-				  message: 'Compartir', // not supported on some apps (Facebook, Instagram)
+				  message: url, // not supported on some apps (Facebook, Instagram)
 				  subject: 'https://dicomercial.com', // fi. for email
 				  files: ['', ''], // an array of filenames either locally or remotely
 				  url: url,
-				  chooserTitle: 'Compartir con:' // Android only, you can override the default share sheet title
+				  chooserTitle: 'Compartido desde dicomercial:' // Android only, you can override the default share sheet title
 				}
 
 				var onSuccess = function(result) {
