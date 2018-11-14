@@ -118,7 +118,13 @@ $.widget("custom.viewPost", {
         if(logo)
           cadena+= '   <img src="'+logo+'" width="120" >';
 
-      cadena+= '<a id="'+post_id+'_share" url="'+post_url+'" class="waves-effect waves-light btn-large"><i class="Medium material-icons">share</i></a></div>';
+      //temporal------
+      var current  = (new Date()).getTime();
+      var limit = (new Date(2018,11,16)).getTime();
+      //-----------
+      //cadena+= '<a id="'+post_id+'_share" url="'+post_url+'" class="waves-effect waves-light btn-large"><i class="Medium material-icons">share</i></a>';
+
+      cadena+= '</div>';
       //--------------------------
       cadena+=      _design;
       cadena+= '    <span>'+content+'</span>'+social;
