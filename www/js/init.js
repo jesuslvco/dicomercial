@@ -42,7 +42,7 @@ require(['config','router'],function (config) {
 			  scripts.init();
 		});
 
-
+/*
 		//disable back button
 		(function (global) { 
 
@@ -68,7 +68,20 @@ require(['config','router'],function (config) {
 		
 			global.onload = function () {            
 				noBackPlease();
-		
+				
+				var count = 0;
+				var last = '';
+				$(document).ready(function(){
+					
+					$('.view-container').each(function(){
+						count++;
+						last = $(this).attr('id');
+					});
+					console.log(last);
+				
+				});
+				
+
 				// disables backspace on page except on input fields and textarea..
 				document.body.onkeydown = function (e) {
 					var elm = e.target.nodeName.toLowerCase();
@@ -81,6 +94,7 @@ require(['config','router'],function (config) {
 			}
 		
 		})(window);
+		*/
 
 
 

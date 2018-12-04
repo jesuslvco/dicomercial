@@ -3,7 +3,8 @@ define(["router"],function(router){
 	var ui = {
 		init:function(){
 			var obj = this;
-			obj.createHTMLStructure();	
+			obj.createHTMLStructure();
+				
 		},
 		createHTMLStructure:function(){
 			var obj = this;
