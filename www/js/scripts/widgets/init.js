@@ -8,6 +8,7 @@ requirejs.config({
 		categoryList:'scripts/widgets/categoryList/jquery.ui.categoryList',
 		viewPost:'scripts/widgets/viewPost/jquery.ui.viewPost',
 		homeSelectors:'scripts/widgets/homeSelectors/jquery.ui.homeSelectors',
+		geoSelection:'scripts/widgets/geoSelection/jquery.ui.geoSelection',
 		menu:'scripts/widgets/menu/jquery.ui.menu',
 		spinner:'scripts/widgets/spinner/jquery.ui.spinner'
     },
@@ -33,6 +34,9 @@ requirejs.config({
 		homeSelectors:{
 			exports:'homeSelectors'
 		},
+		geoSelection:{
+			exports:'geoSelection'
+		},
 		menu:{
 			exports:'menu'
 		},
@@ -43,9 +47,9 @@ requirejs.config({
     waitSeconds: 0
 });
 define(["router","storedData","socialSharing", //modulos
-		"mainUI","categoryToSlider","categoryToMosaic","view","categoryList","viewPost","spinner","homeSelectors","menu"],function  //widgets
+		"mainUI","categoryToSlider","categoryToMosaic","view","categoryList","viewPost","spinner","homeSelectors","geoSelection","menu"],function  //widgets
 		(router,storedData,socialSharing, //modulos
-		mainUI,categoryToSlider,categoryToMosaic,view,categoryList,viewPost,spinner,homeSelectors,menu){ //widgets
+		mainUI,categoryToSlider,categoryToMosaic,view,categoryList,viewPost,spinner,homeSelectors,geoSelection,menu){ //widgets
 	
 	var widgets = {
 		showSpinner:function(){
@@ -168,6 +172,17 @@ define(["router","storedData","socialSharing", //modulos
 				});
 			});
 		},
+		geoSelection:function(opc){
+			var obj = this;
+			obj.createView('Ubicación',function(container){
+				var cadena = '<div id="geoSelection"></div>';
+				container.html(cadena);
+				$('#geoSelection').geoSelection({
+					storedData:storedData,
+					path:require.toUrl("geoSelection")
+				});
+			});
+		},
 		init:function(){
 			var obj = this;
 			var cadena = '';
@@ -187,8 +202,18 @@ define(["router","storedData","socialSharing", //modulos
 				onAction:function(opc) {
 					if(opc.action == 'viewPost'){
 							obj.viewPost(opc);
-						}
 					}
+					
+					if(opc.action == 'menuOption'){
+							var act = opc.id;
+							switch(act){
+								case 'location':
+									obj.geoSelection();
+								break;
+							}
+					}
+				}
+					
 			});
 			//UI
 

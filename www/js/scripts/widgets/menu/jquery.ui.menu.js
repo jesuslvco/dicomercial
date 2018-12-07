@@ -27,6 +27,8 @@ $.widget("custom.menu", {
             cadena+= '  <li class="main-menu-item" type="post" idref="'+id+'" slug="'+slug+'" title="'+title+'"><a href="#!">'+icon+''+title+'</a></li>';
         }
 
+        cadena+= '  <li><div class="divider"></div></li>';
+        cadena+= '  <li class="main-menu-item-option" title="Ubicación" idref="location"><a class="subheader"><i class="material-icons">location_on</i>Ubicación</a></li>';
 
         //cadena+= '  <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>';
         
@@ -48,6 +50,15 @@ $.widget("custom.menu", {
             obj.close();
           });
         });
+        $('.main-menu-item-option').each(function(){
+          $(this).click(function(){
+            var idref = $(this).attr('idref');
+            var title = $(this).attr('title');
+            obj.options.onAction({action:'menuOption',id:idref,title:title});
+            obj.close();
+          });
+        });
+
         
       }
     });
