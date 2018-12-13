@@ -10,9 +10,6 @@
     "cordova-plugin-call-number": {
       "PACKAGE_NAME": "com.dicomercial.dicomercial"
     },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.dicomercial.dicomercial"
-    },
     "cordova-plugin-x-socialsharing": {
       "PACKAGE_NAME": "com.dicomercial.dicomercial"
     }

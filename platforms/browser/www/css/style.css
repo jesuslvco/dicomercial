@@ -1,3 +1,25 @@
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(font/google_font.woff2) format('woff2');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
 
 body{
 	background: #f6f6f6;
@@ -28,4 +50,28 @@ body{
 .app .footer{
 	position: absolute;
 	display: none;
+}
+
+.home-splash{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    z-index: 20100;
+    background-color: white;
+
+    -webkit-transition: all 2000ms ease-in;
+    -moz-transition: all 2000ms ease-in;
+    -ms-transition: all 2000ms ease-in;
+    -o-transition: all 2000ms ease-in;
+    transition: all 2000ms ease-in;
+}
+.home-splash-logo{
+   max-width: 300px;
+   width: 90%;
 }

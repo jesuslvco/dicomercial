@@ -3,9 +3,13 @@ requirejs.config({
     paths: {
         mainUI:'scripts/widgets/mainUI/jquery.ui.mainUI',
 		categoryToSlider:'scripts/widgets/categoryToSlider/jquery.ui.categoryToSlider',
+		categoryToMosaic:'scripts/widgets/categoryToMosaic/jquery.ui.categoryToMosaic',
 		view:'scripts/widgets/view/jquery.ui.view',
 		categoryList:'scripts/widgets/categoryList/jquery.ui.categoryList',
 		viewPost:'scripts/widgets/viewPost/jquery.ui.viewPost',
+		homeSelectors:'scripts/widgets/homeSelectors/jquery.ui.homeSelectors',
+		geoSelection:'scripts/widgets/geoSelection/jquery.ui.geoSelection',
+		menu:'scripts/widgets/menu/jquery.ui.menu',
 		spinner:'scripts/widgets/spinner/jquery.ui.spinner'
     },
 	shim: {
@@ -14,6 +18,9 @@ requirejs.config({
 		},
 		categoryToSlider:{
 			exports:'categoryToSlider'
+		},
+		categoryToMosaic:{
+			exports:'categoryToMosaic'
 		},
 		view:{
 			exports:'view'
@@ -24,16 +31,25 @@ requirejs.config({
 		viewPost:{
 			exports:'viewPost'
 		},
+		homeSelectors:{
+			exports:'homeSelectors'
+		},
+		geoSelection:{
+			exports:'geoSelection'
+		},
+		menu:{
+			exports:'menu'
+		},
 		spinner:{
 			exports:'spinner'
 		}
     },
     waitSeconds: 0
 });
-define(["router","storedData",  //modulos
-		"mainUI","categoryToSlider","view","categoryList","viewPost","spinner"],function  //widgets
-		(router,storedData, //modulos
-		mainUI,categoryToSlider,view,categoryList,viewPost,spinner){ //widgets
+define(["router","storedData","socialSharing", //modulos
+		"mainUI","categoryToSlider","categoryToMosaic","view","categoryList","viewPost","spinner","homeSelectors","geoSelection","menu"],function  //widgets
+		(router,storedData,socialSharing, //modulos
+		mainUI,categoryToSlider,categoryToMosaic,view,categoryList,viewPost,spinner,homeSelectors,geoSelection,menu){ //widgets
 	
 	var widgets = {
 		showSpinner:function(){
@@ -83,7 +99,33 @@ define(["router","storedData",  //modulos
 					slug:slug,
 					storedData:storedData,
 					onAction:function(opc){
-						debugger;
+						if(opc.action == 'dial'){
+							var number = opc.num;
+							//llamada
+								window.plugins.CallNumber.callNumber(
+									function(){ //success
+
+									}, function(){ //error
+										 M.toast({html: 'Error al realizar la llamada al número:'+number});
+									}, number);
+						}
+						if(opc.action == 'viewCategory'){
+							obj.viewCategory(opc);
+						}
+						if(opc.action == 'viewPost'){
+							obj.viewPost(opc);
+						}
+						if(opc.action == 'share'){
+							socialSharing.shareAll(opc.url);
+						}
+						if(opc.action == 'shareFacebook'){
+							socialSharing.shareFacebook(opc.url);
+						}
+						if(opc.action == 'shareTwitter'){
+							socialSharing.shareTwitter(opc.url);
+						}
+						
+
 					}
 				});
 			});
@@ -95,7 +137,6 @@ define(["router","storedData",  //modulos
 				var cadena = '<div id="category_'+opc.id+'"></div>';
 				container.html(cadena); //inicializa contenido principal
 				//activa widgets de inicio
-				var sliderCat = storedData.data.slider_category.id;
 				$('#category_'+opc.id+'').categoryList({
 					path:require.toUrl("categoryList"),
 					storedData:storedData,
@@ -131,6 +172,17 @@ define(["router","storedData",  //modulos
 				});
 			});
 		},
+		geoSelection:function(opc){
+			var obj = this;
+			obj.createView('Ubicación',function(container){
+				var cadena = '<div id="geoSelection"></div>';
+				container.html(cadena);
+				$('#geoSelection').geoSelection({
+					storedData:storedData,
+					path:require.toUrl("geoSelection")
+				});
+			});
+		},
 		init:function(){
 			var obj = this;
 			var cadena = '';
@@ -139,7 +191,29 @@ define(["router","storedData",  //modulos
 			//spinner
 			$('#main_spinner').spinner({
 				path:require.toUrl("spinner"),
-				logo:'img/app_logo_300.jpg'
+				logo:'img/logos/0.5x/app_logo_square@0.5x.png'
+			});
+			//menu
+			$('body').append('<div id="main_menu"></div>');
+			$('#main_menu').menu({
+				path:require.toUrl("menu"),
+				storedData:storedData,
+				image:'img/logos/300w/app_logo_rectangle_solid300.png',
+				onAction:function(opc) {
+					if(opc.action == 'viewPost'){
+							obj.viewPost(opc);
+					}
+					
+					if(opc.action == 'menuOption'){
+							var act = opc.id;
+							switch(act){
+								case 'location':
+									obj.geoSelection();
+								break;
+							}
+					}
+				}
+					
 			});
 			//UI
 
@@ -147,33 +221,95 @@ define(["router","storedData",  //modulos
 				path:require.toUrl("mainUI"),
 				storedData:storedData,
 				homeContent:function(container){
-						var cadena = '<div class="home-logo"><img src="img/app_logo_square.png"></div>';
+						var cadena = '<div id="main_header_logo" class="main-header-logo">';
+							cadena+= '	<div class="home-logo center">';
+							cadena+= '		<img src="img/logos/300w/app_logo_hor_rectangle.png">';
+							cadena+= '	</div>';
+							cadena+= '	<i id="btn_menu" class="small material-icons">dehaze</i>';
+							cadena+= '</div>';
 							cadena+= '<div id="homeSlider"></div>';
 						container.html(cadena); //inicializa contenido principal
-						//activa widgets de inicio
-						var sliderCat = storedData.data.slider_category.id;
-						$('#homeSlider').categoryToSlider({
-							path:require.toUrl("categoryToSlider"),
-							storedData:storedData,
-							idCat:sliderCat,
-							slideToShow:1,
-							per_page:5,
-							autoplaySpeed:8000,
-							autoplay:true
+						$('#btn_menu').click(function() {
+							$('#main_menu').menu('open');
 						});
 
-						var cadena = '<div id="homeRandomPost"></div>';
+						//activa widgets de inicio
+						if(storedData.data.slider_category){
+							var sliderCat = storedData.data.slider_category.id;
+							$('#homeSlider').categoryToSlider({
+								path:require.toUrl("categoryToSlider"),
+								storedData:storedData,
+								idCat:sliderCat,
+								slideToShow:1,
+								per_page:5,
+								autoplaySpeed:8000,
+								autoplay:true,
+								onAction:function(opc) {
+								if(opc.action == 'viewPost'){
+										obj.viewPost(opc);
+									}
+								}
+							});
+						}
+						/*
+						var cadena = '<div id="homePremiumPost"></div>';
 						container.append(cadena); //inicializa contenido principal
 						//activa widgets de inicio
+						//activa widgets de inicio
+						if(storedData.data.premium){
+							var sliderCat = storedData.data.premium.id;
+							$('#homePremiumPost').categoryToSlider({
+								path:require.toUrl("categoryToSlider"),
+								storedData:storedData,
+								idCat:sliderCat,
+								slideToShow:3,
+								per_page:8,
+								autoplaySpeed:10000,
+								autoplay:true,
+								onAction:function(opc) {
+								if(opc.action == 'viewPost'){
+										obj.viewPost(opc);
+									}
+								}
+							});
+
+						}*/
+						if(storedData.data.premium){
+							var cadena = '<div id="homePremiumPost"></div>';
+							container.append(cadena);
+							var mosaicCat = storedData.data.premium.id;
+							$('#homePremiumPost').categoryToMosaic({
+								path:require.toUrl("categoryToMosaic"),
+								storedData:storedData,
+								idCat:mosaicCat,
+								per_page:8,
+								onAction:function(opc) {
+									if(opc.action == 'viewPost'){
+										var title = opc.title;
+										obj.viewPost(opc);
+									}
+								}
+							});
+						}
 						
-						var sliderCat = storedData.data.slider_category.id;
-						$('#homeRandomPost').categoryToSlider({
-							path:require.toUrl("categoryToSlider"),
+						var cadena = '<div id="homeSelectors"></div>';
+						container.append(cadena); //inicializa contenido principal
+						//activa widgets de inicio
+						$('#homeSelectors').homeSelectors({
+							path:require.toUrl("homeSelectors"),
 							storedData:storedData,
-							per_page:10,
-							slideToShow:2,
-							autoplaySpeed:15000,
-							autoplay:false
+							list:router.config.home_selectors,
+							onAction:function(opc) {
+								if(opc.action == 'search'){
+									obj.search({text:opc.text});
+								}
+								if(opc.action == 'viewCategory'){
+									obj.viewCategory(opc);
+								}
+								if(opc.action == 'viewPost'){
+									obj.viewPost(opc);
+								}
+							}
 						});
 				},
 				onAction:function(opc){

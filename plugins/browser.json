@@ -7,9 +7,6 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "org.mdm_mobile"
-    },
     "cordova-plugin-x-socialsharing": {
       "PACKAGE_NAME": "org.mdm_mobile"
     },

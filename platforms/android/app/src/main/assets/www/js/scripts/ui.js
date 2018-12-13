@@ -3,7 +3,8 @@ define(["router"],function(router){
 	var ui = {
 		init:function(){
 			var obj = this;
-			obj.createHTMLStructure();	
+			obj.createHTMLStructure();
+				
 		},
 		createHTMLStructure:function(){
 			var obj = this;
@@ -12,7 +13,7 @@ define(["router"],function(router){
                         '	<div id="main_content" class="main-content"></div>'+
                         '	<div class="footer"></div>'+
                     	'</div>';
-        	$("body").html(chain);
+        	$("body").append(chain);
 		}
 	}
 	return ui;

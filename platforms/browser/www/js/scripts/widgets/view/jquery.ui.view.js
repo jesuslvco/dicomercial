@@ -8,11 +8,17 @@ $.widget("custom.view", {
   //-----Estructura--------------------
   createHtml:function(){
     var obj = this;
-    var cadena = '<div id="container_view_back_'+obj.id+'" class="view-container"></div>';
+
+    //count views
+    var count = 0;
+    $('.view-container').each(function(){
+      count++;
+    });
+
+    var cadena = '<div id="container_view_back_'+obj.id+'" position="'+(count+1)+'" class="view-container"></div>';
         cadena+= '<div class="view-header z-depth-1">';
         cadena+= '  <a  id="btn_view_back_'+obj.id+'" class="waves-effect waves-light btn view-backbutton">Regresar</a><div class="view-header-title truncate">'+obj.options.title+'</div>';
         cadena+= '</div>';
-        
 
     obj.element.html(cadena);
     $('#btn_view_back_'+obj.id).click(function(){

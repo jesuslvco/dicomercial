@@ -59,7 +59,7 @@ $.widget("custom.categoryToSlider", {
     var service = obj.options.storedData.getPostsFromCategory;
     service(idCat,search,page, per_page, function (data) {
       if ($.isFunction(func)) func(data);
-    });
+    },true); //filtrado por geo
     
   },
   //Logica del Widget---------------------------------------------------------------------------------------
