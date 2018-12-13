@@ -15,6 +15,10 @@
             {
               "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -29,10 +33,24 @@
             {
               "xml": "<uses-feature android:name=\"android.hardware.telephony\" android:required=\"false\" />",
               "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+              "count": 1
             }
           ],
-          "/*/application": [],
-          "/manifest/application": []
+          "/*/application": [
+            {
+              "xml": "<receiver android:enabled=\"true\" android:name=\"nl.xservices.plugins.ShareChooserPendingIntent\"><intent-filter><action android:name=\"android.intent.action.SEND\" /></intent-filter></receiver>",
+              "count": 1
+            }
+          ],
+          "/manifest/application": [
+            {
+              "xml": "<provider android:authorities=\"${applicationId}.sharing.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"nl.xservices.plugins.FileProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/sharing_paths\" /></provider>",
+              "count": 1
+            }
+          ]
         }
       }
     }
@@ -43,6 +61,13 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.dicomercial.dicomercial"
+    },
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.dicomercial.dicomercial"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
+      "PACKAGE_NAME": "com.dicomercial.dicomercial"
     }
   },
   "dependent_plugins": {},
@@ -52,6 +77,18 @@
       "id": "cordova-plugin-call-number.CallNumber",
       "clobbers": [
         "call"
+      ]
+    },
+    {
+      "file": "plugins/es6-promise-plugin/www/promise.js",
+      "id": "es6-promise-plugin.Promise",
+      "runs": true
+    },
+    {
+      "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+      "id": "cordova-plugin-x-socialsharing.SocialSharing",
+      "clobbers": [
+        "window.plugins.socialsharing"
       ]
     }
   ]
