@@ -12,6 +12,9 @@
     },
     "cordova-plugin-call-number": {
       "PACKAGE_NAME": "org.mdm_mobile"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.dicomercial.dicomercial"
     }
   },
   "dependent_plugins": {
