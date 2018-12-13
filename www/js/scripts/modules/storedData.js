@@ -13,7 +13,7 @@ define(['config','getData'],function(config,getData){
         currentShow:null,
         currentGeo:null
     }
-    return {
+    var object = {
         data:data,
         getData:getData,
         init:function(func){
@@ -83,30 +83,51 @@ define(['config','getData'],function(config,getData){
             });
 
         },
-        getPostsFromCategory:function(cat_id,search,page,per_page,func){
+        getPostsFromCategory:function(cat_id,search,page,per_page,func,with_geo){
             var obj = this;
             var domain = config.config.connections.domain;
             var service = $.extend({},config.config.connections.postsFromCategory);
             service.url = domain+service.url;
             delete service.params.categories; 
             delete service.params.search;
+            
+            var cats = [];
+            if(with_geo){
+                var geoCat = object.getCategoryInfo(data.currentGeo).slug;
+                cats.push(geoCat);
+            }
 
+            if(cat_id){
+                var filter_cat = object.getCategoryInfo(cat_id).slug;
+                cats.push(filter_cat);
+            }
+            if(cats.length > 0){
+                service.params['filter[category_name]'] = cats.join('+');
+               // service.params['filter[category_name]'] = cats.join('%2B');
+            }
+
+            /*
             if(cat_id) //considera la categoria solo si se recibe el parametro
                 service.params.categories = cat_id;
+
+            */
             if(search)
                 service.params.search = search;
                 
+           /*
            if(service.params.categories){     
                 service.params.categories+='%2B'+data.currentGeo;
            }else{
                service.params.categories = data.currentGeo;
            }
+           */
 
             service.params.page = page;
             service.params.per_page = per_page;
 
-            if(!cat_id && service.params.categories)
-                delete service.params.categories;
+            if(!cat_id && service.params['filter[category_name]'])
+                delete service.params['filter[category_name]'];
+
             getData(service,{},function(_data,status,request){  //success
                 if($.isFunction(func))func(_data);
             },function(_data){ //error
@@ -142,5 +163,6 @@ define(['config','getData'],function(config,getData){
         
 
     };
+    return object;
 });
 	
