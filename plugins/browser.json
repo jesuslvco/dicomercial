@@ -7,9 +7,6 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-x-socialsharing": {
-      "PACKAGE_NAME": "org.mdm_mobile"
-    },
     "cordova-plugin-call-number": {
       "PACKAGE_NAME": "org.mdm_mobile"
     },
@@ -17,9 +14,5 @@
       "PACKAGE_NAME": "com.dicomercial.dicomercial"
     }
   },
-  "dependent_plugins": {
-    "es6-promise-plugin": {
-      "PACKAGE_NAME": "org.mdm_mobile"
-    }
-  }
+  "dependent_plugins": {}
 }
