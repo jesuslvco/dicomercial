@@ -69,11 +69,12 @@ define(['config','getData'],function(config,getData){
                 obj.data.geo.sort(compare);
 
 
-                //revisa si existe posición geográfica definida de lo contrario asigna la primera de las disponibles
+                //revisa si existe posición geográfica definida **de lo contrario asigna la primera de las disponibles**
                 var cgeo = window.localStorage.getItem('location');
                 
-                if(!cgeo) cgeo = (obj.data.geo.length > 0)?obj.data.geo[0].id+'':'';
-                obj.data.currentGeo = cgeo;
+                //if(!cgeo) cgeo = (obj.data.geo.length > 0)?obj.data.geo[0].id+'':'';
+                if(cgeo)
+                    obj.data.currentGeo = cgeo;
                 //-----------------------------------------------------------
 
 
@@ -92,7 +93,7 @@ define(['config','getData'],function(config,getData){
             delete service.params.search;
             
             var cats = [];
-            if(with_geo){
+            if(with_geo && data.currentGeo){
                 var geoCat = object.getCategoryInfo(data.currentGeo).slug;
                 cats.push(geoCat);
             }

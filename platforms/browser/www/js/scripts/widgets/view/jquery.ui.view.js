@@ -22,6 +22,7 @@ $.widget("custom.view", {
 
     obj.element.html(cadena);
     $('#btn_view_back_'+obj.id).click(function(){
+      obj.options.onReturn();
       obj.element.remove();
     });
     obj.options.onContent($('#container_view_back_'+obj.id));

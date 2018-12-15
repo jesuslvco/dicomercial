@@ -71,7 +71,7 @@ $.widget("custom.geoSelection", {
   _create: function () {
     var obj = this;
     obj.id = obj.element.attr('id');
-    obj.current = obj.options.storedData.data.currentGeo.split(',');
+    obj.current = (obj.options.storedData.data.currentGeo)?obj.options.storedData.data.currentGeo.split(',') : '';
     obj.list = obj.options.storedData.data.geo;
 
     this.element

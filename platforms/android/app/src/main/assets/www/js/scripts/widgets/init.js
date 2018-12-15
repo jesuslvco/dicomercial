@@ -60,7 +60,7 @@ define(["router","storedData","socialSharing", //modulos
 			var obj = this;
 
 		},
-		createView:function(title,func){
+		createView:function(title,func,func2){  //titulo, funcion una vez creada, funcion en caso de presionar regresar
 			var countView = 0;
 			$('.custom-view').each(function(){
 				countView++;
@@ -82,6 +82,10 @@ define(["router","storedData","socialSharing", //modulos
 					storedData:storedData,
 					onContent:function(container){
 						func(container);
+					},
+					onReturn:function(){
+						if($.isFunction(func2))
+							func2();
 					}
 				});
 		},
@@ -181,6 +185,11 @@ define(["router","storedData","socialSharing", //modulos
 					storedData:storedData,
 					path:require.toUrl("geoSelection")
 				});
+			},function(){
+				var cgeo = window.localStorage.getItem('location');
+				if(!cgeo){
+					location.reload(); 
+				}
 			});
 		},
 		init:function(){
@@ -323,6 +332,14 @@ define(["router","storedData","socialSharing", //modulos
 					}
 				}
 			});
+
+			//Al cargar toda la interfaz que dese hacer
+			//revisa este definida a aposicion geográfica, de lo contrario manda ventana para seleccionarla
+			var cgeo = window.localStorage.getItem('location');
+			if(!cgeo){
+				obj.geoSelection();
+			}
+
 			
 		}
 	}

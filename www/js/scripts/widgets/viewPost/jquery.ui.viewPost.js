@@ -123,7 +123,7 @@ $.widget("custom.viewPost", {
             var limit = (new Date(2018,11,16)).getTime();
             //-----------
 
-      
+      /* TEMPORALMENTE DESHABILITADO 
       cadena+= '<a id="'+post_id+'_share" url="'+post_url+'" class="dropdown-trigger btn" href="#" data-target="'+post_id+'dropdown"><i class="Medium material-icons">share</i></a>';
 
       cadena+= '<ul id="'+post_id+'dropdown" class="dropdown-content">';
@@ -132,7 +132,7 @@ $.widget("custom.viewPost", {
       cadena+= '  <li class="divider" tabindex="-1"></li>';
       cadena+= '  <li id="'+post_id+'_share_other" url="'+post_url+'"><a href="#!">Otros</a></li>';
       cadena+= '</ul>';
-      
+      */
 
       cadena+= '</div>';
 

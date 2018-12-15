@@ -12,10 +12,6 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.dicomercial.dicomercial"
-    },
-    "cordova-plugin-x-socialsharing": {
-      "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
-      "PACKAGE_NAME": "com.dicomercial.dicomercial"
     }
   },
   "dependent_plugins": {
