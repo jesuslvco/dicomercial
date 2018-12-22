@@ -37,6 +37,8 @@ $.widget("custom.viewPost", {
           header+= '  <div class="viewpost-header-categories">';
           header+= '    <div class="row">';
 
+         
+
           for(var x in cats){
             var item = obj.options.storedData.getCategoryInfo(cats[x].term_id);
             if(item){
@@ -101,6 +103,20 @@ $.widget("custom.viewPost", {
       var cadena = '';
       cadena+= ''
 
+
+      //tools
+      if(data.changegeo){
+        var changegeo = data.changegeo;
+        var item = obj.options.storedData.getCategoryInfo(changegeo);
+        cadena+= '<div class="card">';
+        cadena+= '  <div class="card-content tools-content">';
+        cadena+= '    <a idref="'+changegeo+'" class="changegeo waves-effect waves-light btn"><i class="material-icons left">location_on</i>Cambiar a: '+item.name+'</a>';
+        cadena+= '  </div>';
+        cadena+= '</div>';
+      }
+
+
+
       cadena+= '<div class="card">';
       cadena+= '   <div class="card-image">';
 
@@ -123,7 +139,7 @@ $.widget("custom.viewPost", {
             var limit = (new Date(2018,11,16)).getTime();
             //-----------
 
-      /* TEMPORALMENTE DESHABILITADO 
+      
       cadena+= '<a id="'+post_id+'_share" url="'+post_url+'" class="dropdown-trigger btn" href="#" data-target="'+post_id+'dropdown"><i class="Medium material-icons">share</i></a>';
 
       cadena+= '<ul id="'+post_id+'dropdown" class="dropdown-content">';
@@ -132,7 +148,7 @@ $.widget("custom.viewPost", {
       cadena+= '  <li class="divider" tabindex="-1"></li>';
       cadena+= '  <li id="'+post_id+'_share_other" url="'+post_url+'"><a href="#!">Otros</a></li>';
       cadena+= '</ul>';
-      */
+      
 
       cadena+= '</div>';
 
@@ -142,7 +158,7 @@ $.widget("custom.viewPost", {
       cadena+= '  </div>';
       cadena+= '</div>';
 
-
+      
 
 
       if(phones && phones.length > 0){
@@ -259,6 +275,14 @@ $.widget("custom.viewPost", {
             obj.options.onAction({action:'viewPost',id:id,title:title,slug:slug});
          });
       });
+
+      //tools
+      $('#'+obj.id+' .changegeo').each(function() {
+        $(this).click(function(){
+           var id = $(this).attr('idref');
+           obj.options.onAction({action:'changegeo',id:id});
+        });
+     });
 
       //compartir eventos
       $('#'+post_id+'_share_fb').click(function(){

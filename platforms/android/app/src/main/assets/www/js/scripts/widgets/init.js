@@ -128,8 +128,10 @@ define(["router","storedData","socialSharing", //modulos
 						if(opc.action == 'shareTwitter'){
 							socialSharing.shareTwitter(opc.url);
 						}
-						
-
+						if(opc.action == 'changegeo'){
+							window.localStorage.setItem('location', opc.id);
+          					location.reload(); 
+						}
 					}
 				});
 			});
