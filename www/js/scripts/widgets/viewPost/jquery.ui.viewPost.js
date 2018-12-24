@@ -110,7 +110,8 @@ $.widget("custom.viewPost", {
         var item = obj.options.storedData.getCategoryInfo(changegeo);
         cadena+= '<div class="card">';
         cadena+= '  <div class="card-content tools-content">';
-        cadena+= '    <a idref="'+changegeo+'" class="changegeo waves-effect waves-light btn"><i class="material-icons left">location_on</i>Cambiar a: '+item.name+'</a>';
+        cadena+= '    <a idref="'+changegeo+'" class="changegeo waves-effect waves-light btn"><i class="material-icons left">location_on</i>Ir a Negocios</a>';
+        //cadena+= '    <a idref="'+changegeo+'" class="changegeo waves-effect waves-light btn"><i class="material-icons left">location_on</i>Ir a Negocios: '+item.name+'</a>';
         cadena+= '  </div>';
         cadena+= '</div>';
       }
