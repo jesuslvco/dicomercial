@@ -3,7 +3,7 @@
     <name>dicomercial</name>
     <preference name="android-minSdkVersion" value="15" />
     <preference name="android-targetSdkVersion" value="26" />
-    <preference name="android-maxSdkVersion" value="27" />
+    <preference name="android-maxSdkVersion" value="28" />
     <description>
         Directorio comercial del centro del país.
     </description>
