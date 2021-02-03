@@ -322,6 +322,12 @@ define(["router","storedData","socialSharing", //modulos
 							}
 						});
 
+
+						//pie de contenido
+
+						cadena = '<div id="bottomrights" class="bottomrights"><label>Un producto de</label><img src="img/cp_logo.png"/></div>';
+						container.append(cadena);
+						
 						/*
 						
 						var cadena = '<div id="homeSelectors"></div>';
@@ -356,6 +362,8 @@ define(["router","storedData","socialSharing", //modulos
 					}
 				}
 			});
+
+			
 
 			//Al cargar toda la interfaz que dese hacer
 			//revisa este definida a aposicion geográfica, de lo contrario manda ventana para seleccionarla
