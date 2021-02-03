@@ -1,0 +1,26 @@
+.custom-categoryToCardList{
+  margin-top: 8px;
+
+}
+
+.cat-card-item{
+    position: relative;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: 70px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.cat-card-item-text{
+    padding: 5px;
+    text-align: left;
+}
+
+.cat-card-color{
+  position: relative;
+  top: 0px;
+  height: 6px;
+  left: 0px;
+  right: 0px;
+}

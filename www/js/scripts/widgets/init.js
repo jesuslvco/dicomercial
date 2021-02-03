@@ -4,6 +4,7 @@ requirejs.config({
         mainUI:'scripts/widgets/mainUI/jquery.ui.mainUI',
 		categoryToSlider:'scripts/widgets/categoryToSlider/jquery.ui.categoryToSlider',
 		categoryToMosaic:'scripts/widgets/categoryToMosaic/jquery.ui.categoryToMosaic',
+		categoryToCardList:'scripts/widgets/categoryToCardList/jquery.ui.categoryToCardList',
 		view:'scripts/widgets/view/jquery.ui.view',
 		categoryList:'scripts/widgets/categoryList/jquery.ui.categoryList',
 		viewPost:'scripts/widgets/viewPost/jquery.ui.viewPost',
@@ -21,6 +22,9 @@ requirejs.config({
 		},
 		categoryToMosaic:{
 			exports:'categoryToMosaic'
+		},
+		categoryToCardList:{
+			exports:'categoryToCardList'
 		},
 		view:{
 			exports:'view'
@@ -47,9 +51,9 @@ requirejs.config({
     waitSeconds: 0
 });
 define(["router","storedData","socialSharing", //modulos
-		"mainUI","categoryToSlider","categoryToMosaic","view","categoryList","viewPost","spinner","homeSelectors","geoSelection","menu"],function  //widgets
+		"mainUI","categoryToSlider","categoryToMosaic","categoryToCardList","view","categoryList","viewPost","spinner","homeSelectors","geoSelection","menu"],function  //widgets
 		(router,storedData,socialSharing, //modulos
-		mainUI,categoryToSlider,categoryToMosaic,view,categoryList,viewPost,spinner,homeSelectors,geoSelection,menu){ //widgets
+		mainUI,categoryToSlider,categoryToMosaic,categoryToCardList,view,categoryList,viewPost,spinner,homeSelectors,geoSelection,menu){ //widgets
 	
 	var widgets = {
 		showSpinner:function(){
@@ -302,6 +306,23 @@ define(["router","storedData","socialSharing", //modulos
 								}
 							});
 						}
+
+						var cadena = '<div id="categoryToCardList"></div>';
+						container.append(cadena);
+						var mosaicCat = storedData.data.premium.id;
+						$('#categoryToCardList').categoryToCardList({
+							path:require.toUrl("categoryToCardList"),
+							storedData:storedData,
+							idCat:mosaicCat,
+							per_page:8,
+							onAction:function(opc) {
+								if(opc.action == 'viewCategory'){
+									obj.viewCategory(opc);
+								}
+							}
+						});
+
+						/*
 						
 						var cadena = '<div id="homeSelectors"></div>';
 						container.append(cadena); //inicializa contenido principal
@@ -322,6 +343,7 @@ define(["router","storedData","socialSharing", //modulos
 								}
 							}
 						});
+						*/
 				},
 				onAction:function(opc){
 					switch(opc.action){

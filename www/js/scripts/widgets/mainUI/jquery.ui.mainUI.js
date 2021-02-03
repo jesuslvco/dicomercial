@@ -14,8 +14,9 @@ $.widget("custom.mainUI", {
     cadena+= '</div>';
     cadena+= '<div id="mainui_bottom_container" class="mainui-bottom-container">';
     cadena+= '  <div id="mainui_content" class="mainui-content"></div>';
+    cadena+= '  <div  id="top_tools" class="top-tools"></div>';
     cadena+= '  <div  id="mainui_left" class="mainui-left">';
-    cadena+= '    <div  id="top_tools" class="top-tools"></div>';
+    //cadena+= '    <div  id="top_tools" class="top-tools"></div>';
     cadena+= '    <div  id="cat_container" class="cat-container"></div>';
     cadena+= '  </div>';
     cadena+= '</div>';
@@ -106,30 +107,6 @@ taxonomy: "category"
    $('#btn_search').click(function(){
       obj.showSearch();
    });
-
-    /*
-    var container = new Hammer(document.getElementById('bottomInfo_top_container'));
-		container.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-		container.on("swiperight swipeleft swipeup swipedown", function(ev) { //detectar pan y determina si es swipe basado en la velocidad
-			switch(ev.type){
-				case 'swipeup':
-						if(obj.position < 3)obj.position++;
-						obj.updatePosition();
-					break;
-				case 'swipedown':
-						if(obj.position > 0)obj.position--;
-						obj.updatePosition();
-					break;
-				default:
-						obj.position =  0;
-						obj.updatePosition();
-					break;
-			}
-		});
-    */
-
-
-
     
   },
   // default options
