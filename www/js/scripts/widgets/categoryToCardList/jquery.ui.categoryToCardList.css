@@ -4,17 +4,21 @@
 }
 
 .cat-card-item{
-    position: relative;
-    background-position: bottom right;
-    background-repeat: no-repeat;
-    background-size: 70px;
-    height: 100px;
-    overflow: hidden;
+  position: relative;
+  background-repeat: no-repeat;
+  height: 170px;
+  overflow: hidden;
+  background-size: cover;
+
+  display: flex;
+  align-items: flex-end;
 }
 
 .cat-card-item-text{
-    padding: 5px;
-    text-align: left;
+  padding: 11px;
+  font-size: 1.5em;
+  background-color: rgb(255 255 255 / 65%);
+  font-weight: 500;
 }
 
 .cat-card-color{

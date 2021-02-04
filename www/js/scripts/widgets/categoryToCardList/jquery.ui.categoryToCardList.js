@@ -20,9 +20,10 @@ $.widget("custom.categoryToCardList", {
       cadena = '<div class="row">';
       for(var x in list){
         var cat = list[x];
-        var image = cat.acf.image.sizes.thumbnail;
+        var image = cat.acf.image.sizes.large;
+        
         var color = (cat.color)?cat.color:'#f0d385';
-        cadena+= '<div class="col s6  m4 l3">';
+        cadena+= '<div class="col s12 m6 l4">';
         cadena+= '  <div id="cat_card_item_'+cat.id+'" name="'+cat.name+'" slug="'+cat.slug+'" idref="'+cat.id+'" class="cat-card-item card"';
         cadena+= '   style="background-image:url('+image+')">';
         cadena+= '    <div class="cat-card-color" style="background-color:'+color+'"></div>';
