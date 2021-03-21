@@ -27,6 +27,7 @@ $.widget("custom.viewPost", {
       var instagram = data.instagram;
       var googlemaps = data.googlemaps;
       var twitter = data.twitter;
+      var whatsapp = data.numero_whatsapp;
 
 
 
@@ -94,6 +95,9 @@ $.widget("custom.viewPost", {
       if(twitter && twitter != ''){
         social+= '<span class="social-link"><a href="'+twitter+'" target="_blank"><img src="img/icons/twitter.png"></a></span>';
       }
+      if(whatsapp && whatsapp != ''){
+        social+= '<span class="social-link"><a href="https://api.whatsapp.com/send?phone='+whatsapp+'" target="_blank"><img src="img/icons/whatsapp.png"></a></span>';
+      }
 
       var _design = '';
       if(design && design != ''){
@@ -116,6 +120,11 @@ $.widget("custom.viewPost", {
         cadena+= '</div>';
       }
 
+
+
+      //slider----------------------------------------------------------
+      cadena+= '<div id="sliderFromVendor"></div>'
+      //----------------------------------------------------------------
 
 
       cadena+= '<div class="card">';
@@ -152,8 +161,7 @@ $.widget("custom.viewPost", {
       
 
       cadena+= '</div>';
-
-      //--------------------------
+      
       cadena+=      _design;
       cadena+= '    <span>'+content+'</span>'+social;
       cadena+= '  </div>';
@@ -298,6 +306,9 @@ $.widget("custom.viewPost", {
         var url = $(this).attr('url');
         obj.options.onAction({action:'share',url:url});
       });
+
+      //slider
+      $('#sliderFromVendor').sliderFromVendor({data:data,path:obj.options.pathSlider});
 
       
     })

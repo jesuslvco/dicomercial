@@ -8,6 +8,7 @@ requirejs.config({
 		view:'scripts/widgets/view/jquery.ui.view',
 		categoryList:'scripts/widgets/categoryList/jquery.ui.categoryList',
 		viewPost:'scripts/widgets/viewPost/jquery.ui.viewPost',
+		sliderFromVendor:'scripts/widgets/sliderFromVendor/jquery.ui.sliderFromVendor',
 		homeSelectors:'scripts/widgets/homeSelectors/jquery.ui.homeSelectors',
 		geoSelection:'scripts/widgets/geoSelection/jquery.ui.geoSelection',
 		menu:'scripts/widgets/menu/jquery.ui.menu',
@@ -35,6 +36,9 @@ requirejs.config({
 		viewPost:{
 			exports:'viewPost'
 		},
+		sliderFromVendor:{
+			exports:'sliderFromVendor'
+		},
 		homeSelectors:{
 			exports:'homeSelectors'
 		},
@@ -51,9 +55,9 @@ requirejs.config({
     waitSeconds: 0
 });
 define(["router","storedData","socialSharing", //modulos
-		"mainUI","categoryToSlider","categoryToMosaic","categoryToCardList","view","categoryList","viewPost","spinner","homeSelectors","geoSelection","menu"],function  //widgets
+		"mainUI","categoryToSlider","categoryToMosaic","categoryToCardList","view","categoryList","viewPost","sliderFromVendor","spinner","homeSelectors","geoSelection","menu"],function  //widgets
 		(router,storedData,socialSharing, //modulos
-		mainUI,categoryToSlider,categoryToMosaic,categoryToCardList,view,categoryList,viewPost,spinner,homeSelectors,geoSelection,menu){ //widgets
+		mainUI,categoryToSlider,categoryToMosaic,categoryToCardList,view,categoryList,viewPost,sliderFromVendor,spinner,homeSelectors,geoSelection,menu){ //widgets
 	
 	var widgets = {
 		showSpinner:function(){
@@ -104,6 +108,7 @@ define(["router","storedData","socialSharing", //modulos
 				var sliderCat = storedData.data.slider_category.id;
 				$('#viewpost_'+opc.id).viewPost({
 					path:require.toUrl("viewPost"),
+					pathSlider:require.toUrl("sliderFromVendor"),
 					slug:slug,
 					storedData:storedData,
 					onAction:function(opc){
